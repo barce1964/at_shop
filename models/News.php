@@ -3,7 +3,16 @@
     class News {
 
         public static function getNewsItemById($id) {
+            include_once ROOT . '/db/connect.php';
 
+            $con = mysqli_connect($host, $user, $pwd, $db) 
+                or die("Ошибка " . mysqli_error($con));
+
+            $result = mysqli_query($con, 'select * from at_news
+                where id_news = ' . $id);
+
+            return mysqli_fetch_row($result);
+            mysqli_close($con);
         }
 
         public static function getNewsList() {
@@ -21,12 +30,13 @@
 
             $i = 0;
             while ($row = mysqli_fetch_row($result)) {
-                $newsList[$i]['id_news'] = $row['id_news'];
-                $newsList[$i]['title'] = $row['title'];
-                $newsList[$i]['date'] = $row['date'];
-                $newsList[$i]['short_content'] = $row['short_content'];
+                $newsList[$i]['id_news'] = $row[0];
+                $newsList[$i]['title'] = $row[1];
+                $newsList[$i]['date'] = $row[2];
+                $newsList[$i]['short_content'] = $row[3];
+                $i++;
             }
-            mysql_close($con);
+            mysqli_close($con);
             return $newsList;
         }
     }

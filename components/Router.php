@@ -36,11 +36,11 @@
                     $controllerName = ucfirst($controllerName);
                     $actionName = 'action' . ucfirst(array_shift($segments));
                     $parameters = $segments;
-                    
+
                     // Подключить файл класса контроллера
 
                     $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
-                
+
                     if(file_exists($controllerFile)) {
                         include_once($controllerFile);
                     }

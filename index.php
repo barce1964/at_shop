@@ -19,7 +19,6 @@
     //Установка соединения с БД
 
     //Вызов Router
-
     $router = new Router();
     $router->run();
 ?>
