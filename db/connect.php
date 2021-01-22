@@ -16,27 +16,44 @@
                 return mysqli_fetch_row($result);
         }
 
-        public function getNewsList($qry) {
+        public function getList($qry, $idx) {
             
             $con = mysqli_connect($this->host, $this->user, $this->pwd, $this->db) 
                 or die("Ошибка " . mysqli_error($con));
             
-            $newsList = array();
+            $returnList = array();
 
             $result = mysqli_query($con, $qry)
                 or die("Ошибка " . mysqli_error($con));
 
             $i = 0;
-            while ($row = mysqli_fetch_row($result)) {
-                $newsList[$i]['id_news'] = $row[0];
-                $newsList[$i]['title'] = $row[1];
-                $newsList[$i]['date'] = $row[2];
-                $newsList[$i]['author_name'] = $row[3];
-                $newsList[$i]['short_content'] = $row[4];
-                $i++;
+            switch ($idx) {
+                case 1:
+                    while ($row = mysqli_fetch_row($result)) {
+                        $returnList[$i]['id_news'] = $row[0];
+                        $returnList[$i]['title'] = $row[1];
+                        $returnList[$i]['date'] = $row[2];
+                        $returnList[$i]['author_name'] = $row[3];
+                        $returnList[$i]['short_content'] = $row[4];
+                        $i++;
+                    }
+                    break;
+
+                case 2:
+                    while ($row = mysqli_fetch_row($result)) {
+                        $returnList[$i]['id_cat'] = $row[0];
+                        $returnList[$i]['name_cat'] = $row[1];
+                        $i++;
+                    }
+                    break;
+
+                default:
+                    # code...
+                    break;
             }
+            
             mysqli_close($con);
-            return $newsList;
+            return $returnList;
         }
 
     }

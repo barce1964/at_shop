@@ -20,7 +20,7 @@
                 order by date desc
                 limit 10';
 
-            return $connect->getNewsList($query);
+            return $connect->getList($query, 1);
         }
     }
 ?>
