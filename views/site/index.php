@@ -11,7 +11,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a href="/category/<?php echo $categoryItem['id'];?>">
+                                        <a href="/category/<?php echo $categoryItem['id_cat'];?>">
                                             <?php echo $categoryItem['name_cat'];?>
                                         </a>
                                     </h4>
@@ -31,11 +31,11 @@
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img src="../../images/home/product1.jpg" alt="" />
-                                        <h2><?php echo $product['price'];?>$</h2>
+                                        <img src=<?php echo '../..' . $product['image_prod'] ?> alt="" />
+                                        <h2><?php echo $product['price_prod'];?>Т</h2>
                                         <p>
-                                            <a href="/product/<?php echo $product['id'];?>">
-                                                <?php echo $product['name'];?>
+                                            <a href="/product/<?php echo $product['id_prod'];?>">
+                                                <?php echo $product['name_prod'];?>
                                             </a>
                                         </p>
                                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>

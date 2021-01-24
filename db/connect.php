@@ -47,6 +47,18 @@
                     }
                     break;
 
+                case 3:
+                    while ($row = mysqli_fetch_row($result)) {
+                        $returnList[$i]['id_prod'] = $row[0];
+                        $returnList[$i]['name_prod'] = $row[1];
+                        $returnList[$i]['price_prod'] = $row[2];
+                        $returnList[$i]['image_prod'] = $row[3];
+                        $returnList[$i]['is_new'] = $row[4];
+                        $i++;
+                    }
+                    break;
+
+
                 default:
                     # code...
                     break;
