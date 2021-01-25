@@ -42,7 +42,7 @@
                 //$db = Db::getConnection(); 
                 //$products = array();
                 $query="SELECT id_prod, name_prod, price_prod, image_prod, is_new FROM at_shop_prod "
-                    . "WHERE status_prod = '1' AND category_id = '$categoryId' "
+                    . "WHERE status_prod = '1' AND id_cat = '$categoryId' "
                     . "ORDER BY id_prod "                
                     . "LIMIT ". self::SHOW_BY_DEFAULT;
 
@@ -62,18 +62,18 @@
         }
     
     
-        // public static function getProductById($id) {
-        //     $id = intval($id);
-
-        //     if ($id) {                        
-        //         $db = Db::getConnection();
+        public static function getProductById($id) {
+            $id = intval($id);
             
-        //         $result = $db->query('SELECT * FROM product WHERE id=' . $id);
-        //         $result->setFetchMode(PDO::FETCH_ASSOC);
+            if ($id) {                        
+                // $db = Db::getConnection();
+                $connect = new DB;
+                $query = 'SELECT * FROM at_shop_prod WHERE id_prod=' . $id;
+                //$result->setFetchMode(PDO::FETCH_ASSOC);
             
-        //         return $result->fetch();
-        //     }
-        // }
+                return $connect->getList($query, 4);
+            }
+        }
     
         // public static function getRecommendedProducts() {
         //     $db = Db::getConnection();

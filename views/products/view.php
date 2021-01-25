@@ -11,8 +11,8 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a href="/category/<?php echo $categoryItem['id'];?>">
-                                            <?php echo $categoryItem['name'];?>
+                                        <a href="/category/<?php echo $categoryItem['id_cat'];?>">
+                                            <?php echo $categoryItem['name_cat'];?>
                                         </a>
                                     </h4>
                                 </div>
@@ -27,16 +27,18 @@
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="view-product">
-                                <img src="../../images/product-details/1.jpg" alt="" />
+                                <img src=<?php echo "../.." . $product[0]['image_prod'] ?> alt="" />
                             </div>
                         </div>
                         <div class="col-sm-7">
                             <div class="product-information"><!--/product-information-->
-                                <img src="../../images/product-details/new.jpg" class="newarrival" alt="" />
-                                <h2><?php echo $product['name'];?></h2>
-                                <p>Код товара: <?php echo $product['code'];?></p>
+                                <?php if ($product[0]['is_new']): ?>
+                                    <img src="../../images/product-details/new.jpg" class="newarrival" alt="" />
+                                <?php endif; ?>
+                                <h2><?php echo $product[0]['name_prod'];?></h2>
+                                <p>Код товара: <?php echo $product[0]['code_prod'];?></p>
                                 <span>
-                                    <span>US $<?php echo $product['price'];?></span>
+                                    <span>Тенге<?php echo $product[0]['price_prod'];?></span>
                                     <label>Количество:</label>
                                     <input type="text" value="3" />
                                     <button type="button" class="btn btn-fefault cart">
@@ -53,7 +55,7 @@
                     <div class="row">                                
                         <div class="col-sm-12">
                             <h5>Описание товара</h5>
-                            <?php echo $product['description'];?>
+                            <?php echo $product[0]['descr_prod'];?>
                         </div>
                     </div>
                 </div><!--/product-details-->
