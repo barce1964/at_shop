@@ -38,7 +38,7 @@
                                 <h2><?php echo $product[0]['name_prod'];?></h2>
                                 <p>Код товара: <?php echo $product[0]['code_prod'];?></p>
                                 <span>
-                                    <span>Тенге<?php echo $product[0]['price_prod'];?></span>
+                                    <span><?php echo $product[0]['price_prod'];?> Тенге</span>
                                     <label>Количество:</label>
                                     <input type="text" value="3" />
                                     <button type="button" class="btn btn-fefault cart">

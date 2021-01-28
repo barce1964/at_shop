@@ -34,7 +34,7 @@
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <img src=<?php echo '../..' . $product['image_prod'] ?> alt="" />
-                                        <h2><?php echo $product['price_prod'];?>$</h2>
+                                        <h2><?php echo $product['price_prod'];?>Т</h2>
                                         <p>
                                             <a href="/product/<?php echo $product['id_prod'];?>">
                                                 <?php echo $product['name_prod'];?>
