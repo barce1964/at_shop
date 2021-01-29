@@ -2,7 +2,7 @@
 
     class Product {
 
-        const SHOW_BY_DEFAULT = 10;
+        const SHOW_BY_DEFAULT = 6;
 
         public static function getLatestProducts($count = self::SHOW_BY_DEFAULT) {
             include_once ROOT . '/db/connect.php';
@@ -36,15 +36,19 @@
             return $connect->getList($query, 3);
         }
     
-        public static function getProductsListByCategory($categoryId = false) {
+        public static function getProductsListByCategory($categoryId = false, $page=1) {
             if ($categoryId) {
                 $connect = new DB;
                 //$db = Db::getConnection(); 
                 //$products = array();
+                $page = intval($page);
+                $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
+
                 $query="SELECT id_prod, name_prod, price_prod, image_prod, is_new FROM at_shop_prod "
                     . "WHERE status_prod = '1' AND id_cat = '$categoryId' "
                     . "ORDER BY id_prod "                
-                    . "LIMIT ". self::SHOW_BY_DEFAULT;
+                    . "LIMIT ". self::SHOW_BY_DEFAULT
+                    . " OFFSET " . $offset;
 
                 // $i = 0;
                 // while ($row = $result->fetch()) {
