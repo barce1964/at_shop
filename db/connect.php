@@ -20,8 +20,6 @@
             
             $con = mysqli_connect($this->host, $this->user, $this->pwd, $this->db) 
                 or die("Ошибка " . mysqli_error($con));
-            
-            $returnList = array();
 
             $result = mysqli_query($con, $qry)
                 or die("Ошибка " . mysqli_error($con));
@@ -29,6 +27,7 @@
             $i = 0;
             switch ($idx) {
                 case 1:
+                    $returnList = array();
                     while ($row = mysqli_fetch_row($result)) {
                         $returnList[$i]['id_news'] = $row[0];
                         $returnList[$i]['title'] = $row[1];
@@ -40,6 +39,7 @@
                     break;
 
                 case 2:
+                    $returnList = array();
                     while ($row = mysqli_fetch_row($result)) {
                         $returnList[$i]['id_cat'] = $row[0];
                         $returnList[$i]['name_cat'] = $row[1];
@@ -48,6 +48,7 @@
                     break;
 
                 case 3:
+                    $returnList = array();
                     while ($row = mysqli_fetch_row($result)) {
                         $returnList[$i]['id_prod'] = $row[0];
                         $returnList[$i]['name_prod'] = $row[1];
@@ -59,6 +60,7 @@
                     break;
 
                     case 4:
+                        $returnList = array();
                         while ($row = mysqli_fetch_row($result)) {
                             $returnList[$i]['id_prod'] = $row[0];
                             $returnList[$i]['id_cat'] = $row[1];
@@ -75,6 +77,10 @@
                             $i++;
                         }
                         break;
+
+                    case 5:
+                        $row = mysqli_fetch_row($result);
+                        $returnList = $row[0];
     
                 default:
                     # code...
@@ -82,6 +88,15 @@
             }
             mysqli_close($con);
             return $returnList;
+        }
+
+        public function insertRowToDB($qry) {
+            $con = mysqli_connect($this->host, $this->user, $this->pwd, $this->db) 
+                or die("Ошибка " . mysqli_error($con));
+
+            return mysqli_query($con, $qry)
+                or die("Ошибка " . mysqli_error($con));
+            
         }
 
     }

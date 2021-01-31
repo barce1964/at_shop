@@ -7,6 +7,12 @@
 alter table AT_SHOP_PROD 
    drop foreign key FK_AT_SHOP__REFERENCE_AT_SHOP_;
 
+drop index EMAIL_USER_IDX on AT_ADM_USERS;
+
+drop index NAME_USER_IDX on AT_ADM_USERS;
+
+drop table if exists AT_ADM_USERS;
+
 drop index AUTHOR_NAME_IDX on AT_NEWS;
 
 drop index DATE_IDX on AT_NEWS;
@@ -32,6 +38,34 @@ alter table AT_SHOP_PROD
    drop foreign key FK_AT_SHOP__REFERENCE_AT_SHOP_;
 
 drop table if exists AT_SHOP_PROD;
+
+/*==============================================================*/
+/* Table: AT_ADM_USERS                                          */
+/*==============================================================*/
+create table AT_ADM_USERS
+(
+   ID_USER              int not null AUTO_INCREMENT,
+   NAME_USER            varchar(20) not null,
+   EMAIL_USER           varchar(60) not null,
+   PWD_USER             varchar(255) not null,
+   primary key (ID_USER)
+);
+
+/*==============================================================*/
+/* Index: NAME_USER_IDX                                         */
+/*==============================================================*/
+create unique index NAME_USER_IDX on AT_ADM_USERS
+(
+   NAME_USER
+);
+
+/*==============================================================*/
+/* Index: EMAIL_USER_IDX                                        */
+/*==============================================================*/
+create unique index EMAIL_USER_IDX on AT_ADM_USERS
+(
+   EMAIL_USER
+);
 
 /*==============================================================*/
 /* Table: AT_NEWS                                               */

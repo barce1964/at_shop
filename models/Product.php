@@ -5,7 +5,7 @@
         const SHOW_BY_DEFAULT = 6;
 
         public static function getLatestProducts($count = self::SHOW_BY_DEFAULT) {
-            include_once ROOT . '/db/connect.php';
+            // include_once ROOT . '/db/connect.php';
 
             $connect = new DB;
 
@@ -79,6 +79,22 @@
             }
         }
     
+        public static function getTotalProductsInCategory($categoryId)
+        {
+            $connect = new DB;
+
+            //$db = Db::getConnection();
+            $query = 'SELECT count(id_prod) AS count FROM at_shop_prod '
+                . 'WHERE status_prod="1" AND id_cat ="'.$categoryId.'"';
+
+            // $result = $db->query('SELECT count(id) AS count FROM product '
+            //         . 'WHERE status="1" AND category_id ="'.$categoryId.'"');
+            // $result->setFetchMode(PDO::FETCH_ASSOC);
+            // $row = $result->fetch();
+    
+            return $connect->getList($query, 5);
+        }
+
         // public static function getRecommendedProducts() {
         //     $db = Db::getConnection();
 
