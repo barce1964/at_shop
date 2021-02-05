@@ -39,17 +39,17 @@ ul li {
 }
 
 #blink2 {
-  -webkit-animation: blink1 3s linear infinite;
-  animation: blink1 4s linear infinite;
+  -webkit-animation: blink2 3s linear infinite;
+  animation: blink2 4s linear infinite;
 }
 
-@-webkit-keyframes blink1 {
+@-webkit-keyframes blink2 {
   0% { color: rgba(0, 255, 0, 1); }
   50% { color: rgba(0, 255, 0, 0); }
   100% { color: rgba(0, 255, 0, 1); }
 }
 
-@keyframes blink1 {
+@keyframes blink2 {
   0% { color: rgba(0, 255, 0, 1); }
   50% { color: rgba(0, 255, 0, 0); }
   100% { color: rgba(0, 255, 0, 1); }
