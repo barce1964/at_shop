@@ -7,8 +7,9 @@
             $userId = User::checkLogged();
             
             // Получаем информацию о пользователе из БД
+            $user = array();
             $user = User::getUserById($userId);
-                    
+            
             require_once(ROOT . '/views/cabinet/index.php');
 
             return true;

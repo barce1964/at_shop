@@ -81,6 +81,7 @@
                     case 5:
                         $row = mysqli_fetch_row($result);
                         $returnList = $row[0];
+                        break;
 
                     case 6:
                         $returnList = array();
@@ -88,7 +89,19 @@
                             $returnList['id_user'] = $row[0];
                             $returnList['name_user'] = $row[1];
                         }
-    
+                        break;
+
+                    case 7:
+                        $returnList = array();
+                        while ($row = mysqli_fetch_row($result)) {
+                            $returnList['id_user'] = $row[0];
+                            $returnList['name_user'] = $row[1];
+                            $returnList['email_user'] = $row[2];
+                            $returnList['pwd_user'] = $row[3];
+                        }
+                        print_r($returnList);
+                        break;
+        
                 default:
                     # code...
                     break;

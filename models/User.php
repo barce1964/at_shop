@@ -6,7 +6,7 @@
             include_once ROOT . '/db/connect.php';
             $connect = new DB();
             $pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
-
+            
             $query = 'INSERT INTO at_adm_users (name_user, email_user, pwd_user) '
                 . "VALUES ('$name', '$email', '$pwd')";
             
@@ -42,15 +42,13 @@
             
             include_once ROOT . '/db/connect.php';
             $connect = new DB;
-            $options = [
-                'cost' => 12,
-                'salt' => 'alexander&ruslan$',
-            ];
+            
             $pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
             $query = "SELECT * FROM at_adm_users WHERE email_user = '$email' AND pwd_user = '$pwd'";
 
             $user = $connect->getList($query, 6);
             if ($user) {
+                
                 return $user['id_user'];
             }
 
@@ -63,16 +61,18 @@
          * @param string $password
          */
         public static function auth($userId) {
+            session_start();
             $_SESSION['user'] = $userId;
         }
 
         public static function checkLogged() {
             // Если сессия есть, вернем идентификатор пользователя
+            echo $_SESSION['user'];
             if (isset($_SESSION['user'])) {
                 return $_SESSION['user'];
+            } else {
+                header("Location: /user/login");
             }
-
-            header("Location: /user/login");
         }
 
         public static function isGuest() {
@@ -130,19 +130,24 @@
         * @param integer $id
         */
         public static function getUserById($id) {
+            include_once ROOT . '/db/connect.php';
+
             if ($id) {
-                $db = Db::getConnection();
-                $sql = 'SELECT * FROM user WHERE id = :id';
+                $connect = new DB();
 
-                $result = $db->prepare($sql);
-                $result->bindParam(':id', $id, PDO::PARAM_INT);
+                //$db = Db::getConnection();
+                $sql = 'SELECT * FROM at_adm_user WHERE id = ' . $id;
 
-                // Указываем, что хотим получить данные в виде массива
-                $result->setFetchMode(PDO::FETCH_ASSOC);
-                $result->execute();
+                // $result = $db->prepare($sql);
+                // $result->bindParam(':id', $id, PDO::PARAM_INT);
+
+                // // Указываем, что хотим получить данные в виде массива
+                // $result->setFetchMode(PDO::FETCH_ASSOC);
+                // $result->execute();
 
 
-                return $result->fetch();
+                // return $result->fetch();
+                return $connect->getList($sql, 6);
             }
         }
     }
