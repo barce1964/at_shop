@@ -19,17 +19,12 @@
          * @param string $password
          */
         public static function edit($id, $name, $password) {
-            $db = Db::getConnection();
-            
-            $sql = "UPDATE user 
-                SET name = :name, password = :password 
-                WHERE id = :id";
-            
-            $result = $db->prepare($sql);                                  
-            $result->bindParam(':id', $id, PDO::PARAM_INT);       
-            $result->bindParam(':name', $name, PDO::PARAM_STR);    
-            $result->bindParam(':password', $password, PDO::PARAM_STR); 
-            return $result->execute();
+            //$db = Db::getConnection();
+            $connect = new DB();
+            $pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
+            $sql = "UPDATE at_adm_users SET name_user = '$name', pwd_user = '$password' WHERE id_user = $id";
+        
+            return $connect->updateRowInTable($sql);
         }
 
         /**
@@ -61,13 +56,11 @@
          * @param string $password
          */
         public static function auth($userId) {
-            session_start();
             $_SESSION['user'] = $userId;
         }
 
         public static function checkLogged() {
             // Если сессия есть, вернем идентификатор пользователя
-            echo $_SESSION['user'];
             if (isset($_SESSION['user'])) {
                 return $_SESSION['user'];
             } else {
@@ -135,18 +128,8 @@
             if ($id) {
                 $connect = new DB();
 
-                //$db = Db::getConnection();
-                $sql = 'SELECT * FROM at_adm_user WHERE id = ' . $id;
+                $sql = 'SELECT * FROM at_adm_users WHERE id_user = ' . $id;
 
-                // $result = $db->prepare($sql);
-                // $result->bindParam(':id', $id, PDO::PARAM_INT);
-
-                // // Указываем, что хотим получить данные в виде массива
-                // $result->setFetchMode(PDO::FETCH_ASSOC);
-                // $result->execute();
-
-
-                // return $result->fetch();
                 return $connect->getList($sql, 6);
             }
         }

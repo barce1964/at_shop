@@ -88,6 +88,8 @@
                         while ($row = mysqli_fetch_row($result)) {
                             $returnList['id_user'] = $row[0];
                             $returnList['name_user'] = $row[1];
+                            $returnList['email_user'] = $row[2];
+                            $returnList['pwd_user'] = $row[3];
                         }
                         break;
 
@@ -117,6 +119,14 @@
             return mysqli_query($con, $qry)
                 or die("Ошибка " . mysqli_error($con));
             
+        }
+
+        public function updateRowInTable($qry) {
+            $con = mysqli_connect($this->host, $this->user, $this->pwd, $this->db) 
+                or die("Ошибка " . mysqli_error($con));
+
+            return mysqli_query($con, $qry)
+                or die("Ошибка " . mysqli_error($con));
         }
 
     }
