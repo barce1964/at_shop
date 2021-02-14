@@ -31,24 +31,28 @@
             if (isset($_POST['submit'])) {
                 $name = $_POST['name'];
                 $email = $_POST['email'];
-                $password = $_POST['password'];
+                if ($_POST['password'] != '') {
+                    $password = $_POST['password'];
+                }
                 
                 $errors = false;
-                
+               
                 if (!User::checkName($name)) {
                     $errors[] = 'Имя не должно быть короче 2-х символов';
                 }
-
+                
                 if (!User::checkEmail($email)) {
                     $errors[] = 'Неправильный email';
                 }
                 
-                if (!User::checkPassword($password)) {
-                    $errors[] = 'Пароль не должен быть короче 8-ти символов';
+                if ($password != '') {
+                    if (!User::checkPassword($password)) {
+                        $errors[] = 'Пароль не должен быть короче 8-ти символов';
+                    }
                 }
                 
                 if ($errors == false) {
-                    $result = User::edit($userId, $name, $password);
+                    $result = User::edit($userId, $name, $email, $password);
                 }
 
             }

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     23.01.2021 21:14:25                          */
+/* Created on:     14.02.2021 20:26:09                          */
 /*==============================================================*/
 
 
@@ -48,6 +48,8 @@ create table AT_ADM_USERS
    NAME_USER            varchar(20) not null,
    EMAIL_USER           varchar(60) not null,
    PWD_USER             varchar(255) not null,
+   USER_CIF             varchar(50) not null,
+   USER_IV              varchar(100) not null,
    primary key (ID_USER)
 );
 
@@ -181,3 +183,4 @@ create index BRAND_PROD_IDX on AT_SHOP_PROD
 
 alter table AT_SHOP_PROD add constraint FK_AT_SHOP__REFERENCE_AT_SHOP_ foreign key (ID_CAT)
       references AT_SHOP_CAT (ID_CAT) on delete restrict on update restrict;
+

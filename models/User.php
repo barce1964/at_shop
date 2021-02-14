@@ -5,12 +5,18 @@
 
             include_once ROOT . '/db/connect.php';
             $connect = new DB();
-            $pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
+            $cipher = "aes-256-ofb";
+            $ivlen = openssl_cipher_iv_length($cipher);
+            $iv = 'aumlperfgbcdnkuj';//openssl_random_pseudo_bytes($ivlen);
+            $key = 'F Hjpf Egfkf Yf Kfge Fpjhf !@#$%';
+            $pwd = openssl_encrypt($password, $cipher, $key, $options=0, $iv);
+            echo "$iv<br>$password<br>$pwd";
+            //$pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
             
-            $query = 'INSERT INTO at_adm_users (name_user, email_user, pwd_user) '
-                . "VALUES ('$name', '$email', '$pwd')";
+            // $query = 'INSERT INTO at_adm_users (name_user, email_user, pwd_user, user_cif, user_iv) '
+            //     . "VALUES ('$name', '$email', '$pwd', '$cipher', $iv)";
             
-            return $connect->insertRowToDB($query);
+            // return $connect->insertRowToDB($query);
         }
         
         /**
@@ -18,11 +24,11 @@
          * @param string $name
          * @param string $password
          */
-        public static function edit($id, $name, $password) {
+        public static function edit($id, $name, $email, $password) {
             //$db = Db::getConnection();
             $connect = new DB();
             $pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
-            $sql = "UPDATE at_adm_users SET name_user = '$name', pwd_user = '$password' WHERE id_user = $id";
+            $sql = "UPDATE at_adm_users SET name_user = '$name', email_user = '$email', pwd_user = '$pwd' WHERE id_user = $id";
         
             return $connect->updateRowInTable($sql);
         }
@@ -39,6 +45,7 @@
             $connect = new DB;
             
             $pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
+            
             $query = "SELECT * FROM at_adm_users WHERE email_user = '$email' AND pwd_user = '$pwd'";
 
             $user = $connect->getList($query, 6);
