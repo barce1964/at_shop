@@ -22,7 +22,7 @@
                         <form action="#" method="post">
                             <input type="text" name="name" placeholder="Имя" value="<?php echo $name; ?>"/>
                             <input type="email" name="email" placeholder="E-mail" value="<?php echo $email; ?>"/>
-                            <input type="password" name="password" placeholder="Пароль"/>
+                            <input type="password" name="password" placeholder="Пароль" value="<?php echo $password; ?>"/>
                             <br/>
                             <input type="submit" name="submit" class="btn btn-default" value="Сохранить" />
                         </form>

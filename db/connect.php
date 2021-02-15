@@ -90,6 +90,9 @@
                             $returnList['name_user'] = $row[1];
                             $returnList['email_user'] = $row[2];
                             $returnList['pwd_user'] = $row[3];
+                            $returnList['user_cif'] = $row[4];
+                            $returnList['user_iv'] = $row[5];
+                            $returnList['user_key'] = $row[6];
                         }
                         break;
 

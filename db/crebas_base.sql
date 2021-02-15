@@ -50,6 +50,7 @@ create table AT_ADM_USERS
    PWD_USER             varchar(255) not null,
    USER_CIF             varchar(50) not null,
    USER_IV              varchar(100) not null,
+   USER_KEY             varchar(100) not null,
    primary key (ID_USER)
 );
 

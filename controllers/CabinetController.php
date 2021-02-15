@@ -24,17 +24,19 @@
             
             $name = $user['name_user'];
             $email = $user['email_user'];
-            $password = $user['pwd_user'];
+            $pwd = $user['pwd_user'];
+            $cif = $user['user_cif'];
+            $iv = $user['user_iv'];
+            $key = $user['user_key'];
+            $password = openssl_decrypt($pwd, $cif, $key, $options=0, $iv);
                     
             $result = false;     
 
             if (isset($_POST['submit'])) {
                 $name = $_POST['name'];
                 $email = $_POST['email'];
-                if ($_POST['password'] != '') {
-                    $password = $_POST['password'];
-                }
-                
+                $password = $_POST['password'];
+                                
                 $errors = false;
                
                 if (!User::checkName($name)) {

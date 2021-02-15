@@ -1,22 +1,34 @@
 <?php
 
     class User {
+        private static function genStr($step) {
+            $i = 1;
+            $strg = '';
+            while ($i <= $step) {
+                $shr_code = mt_rand ( 33, 124);
+                if ($shr_code != 34 && $shr_code != 39 && $shr_code != 44 && $shr_code != 46 && $shr_code != 47 && $shr_code != 96) {
+                    $shr = chr($shr_code);
+                    $strg = $strg . $shr;
+                    $i++;
+                }
+            }
+            return $strg;
+        }
+
         public static function register($name, $email, $password) {
 
             include_once ROOT . '/db/connect.php';
             $connect = new DB();
             $cipher = "aes-256-ofb";
-            $ivlen = openssl_cipher_iv_length($cipher);
-            $iv = 'aumlperfgbcdnkuj';//openssl_random_pseudo_bytes($ivlen);
-            $key = 'F Hjpf Egfkf Yf Kfge Fpjhf !@#$%';
+            $iv = User::genStr(16);//openssl_random_pseudo_bytes($ivlen);
+            $key = User::genStr(32);
             $pwd = openssl_encrypt($password, $cipher, $key, $options=0, $iv);
-            echo "$iv<br>$password<br>$pwd";
             //$pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
             
-            // $query = 'INSERT INTO at_adm_users (name_user, email_user, pwd_user, user_cif, user_iv) '
-            //     . "VALUES ('$name', '$email', '$pwd', '$cipher', $iv)";
+            $query = 'INSERT INTO at_adm_users (name_user, email_user, pwd_user, user_cif, user_iv, user_key) '
+                . "VALUES ('$name', '$email', '$pwd', '$cipher', '$iv', '$key')";
             
-            // return $connect->insertRowToDB($query);
+            return $connect->insertRowToDB($query);
         }
         
         /**
@@ -27,8 +39,13 @@
         public static function edit($id, $name, $email, $password) {
             //$db = Db::getConnection();
             $connect = new DB();
-            $pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
-            $sql = "UPDATE at_adm_users SET name_user = '$name', email_user = '$email', pwd_user = '$pwd' WHERE id_user = $id";
+            $cipher = "aes-256-ofb";
+            $iv = User::genStr(16);//openssl_random_pseudo_bytes($ivlen);
+            $key = User::genStr(32);
+            $pwd = openssl_encrypt($password, $cipher, $key, $options=0, $iv);
+            $sql = "UPDATE at_adm_users SET name_user = '$name', email_user = '$email',
+                pwd_user = '$pwd', user_cif = '$cipher', user_iv = '$iv', user_key = '$key'
+                WHERE id_user = $id";
         
             return $connect->updateRowInTable($sql);
         }
@@ -44,13 +61,19 @@
             include_once ROOT . '/db/connect.php';
             $connect = new DB;
             
-            $pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
+            //$pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
             
-            $query = "SELECT * FROM at_adm_users WHERE email_user = '$email' AND pwd_user = '$pwd'";
+            $query = "SELECT * FROM at_adm_users WHERE email_user = '$email'";
 
             $user = $connect->getList($query, 6);
+            $cipher = $user['user_cif'];
+            $iv = $user['user_iv'];//openssl_random_pseudo_bytes($ivlen);
+            $key = $user['user_key'];
+            $pwd = openssl_encrypt($password, $cipher, $key, $options=0, $iv);
+            $query = "SELECT * FROM at_adm_users WHERE email_user = '$email' and pwd_user = '$pwd'";
+            $user = $connect->getList($query, 6);
+
             if ($user) {
-                
                 return $user['id_user'];
             }
 
