@@ -13,45 +13,50 @@
 
 
 -- Дамп структуры базы данных at_shop
-CREATE DATABASE IF NOT EXISTS `at_shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE IF NOT EXISTS `at_shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `at_shop`;
 
 -- Дамп структуры для таблица at_shop.at_adm_users
 CREATE TABLE IF NOT EXISTS `at_adm_users` (
   `ID_USER` int NOT NULL AUTO_INCREMENT,
-  `NAME_USER` varchar(20) COLLATE utf8mb4_bin NOT NULL,
-  `EMAIL_USER` varchar(60) COLLATE utf8mb4_bin NOT NULL,
-  `PWD_USER` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `NAME_USER` varchar(20) NOT NULL,
+  `EMAIL_USER` varchar(60) NOT NULL,
+  `PWD_USER` varchar(255) NOT NULL,
+  `USER_CIF` varchar(50) NOT NULL,
+  `USER_IV` varchar(100) NOT NULL,
+  `USER_KEY` varchar(100) NOT NULL,
   PRIMARY KEY (`ID_USER`),
   UNIQUE KEY `NAME_USER_IDX` (`NAME_USER`),
   UNIQUE KEY `EMAIL_USER_IDX` (`EMAIL_USER`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Дамп данных таблицы at_shop.at_adm_users: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `at_adm_users` DISABLE KEYS */;
-INSERT INTO `at_adm_users` (`ID_USER`, `NAME_USER`, `EMAIL_USER`, `PWD_USER`) VALUES
-	(1, 'Alex', 'alexvictar@mail.ru', '$2y$10$SlmVJmsPs0XIIrH21iNrLu35lxTrUH2sDudaCKQx7Wa8qv1/V2m42'),
-	(3, 'Ruslan', 'alexvictar@gmail.ru', '$2y$10$0/pI7pC0XDYKyHE7IG/7tu2s3v.ms/BBZn8.RtDefOPz2J3/FZ6IW'),
-	(4, 'Avt', 'tarayev@kimep.kz', '$2y$10$rzNoAjuae./QkqvK0TfdK.N8/Tl3jbr70hrgls5h/npqTbWC2KAaK');
+INSERT INTO `at_adm_users` (`ID_USER`, `NAME_USER`, `EMAIL_USER`, `PWD_USER`, `USER_CIF`, `USER_IV`, `USER_KEY`) VALUES
+	(1, 'Alex', 'alexvictar@mail.ru', 'ciFTNN64/X32phc=', 'aes-256-ofb', '&?1Y%<eJL@myY$|o', '@n=x7Q6@]I4*V]Mg*epLgTd-wA2-jxD7'),
+	(2, 'Marina', 'al@mail.ru', '5Mwfa/zOiZmX', 'aes-256-ofb', '$bY:vAZWs!$iVX0m', '{HmrIxnXDxPg1aw6VIv;o3|9l{kD9;uV'),
+	(3, 'Vladimir', 'vladimir@mail.ru', 'xbN9QNuYcggDkHLk', 'aes-256-ofb', '#vr<20vJJR4b0rtP', 'KZi(<{{=1TxBH?FlIGTL3w2OW%83)5t'),
+	(4, 'Ruslan', 'tr@mail.ru', '6x8sQpDzeQGNUDw=', 'aes-256-ofb', 'qrJpcpyW[xr$oP&U', 'a{RdVvr(AzO!C7D8)*pTlu&cYl38(fU'),
+	(5, 'ac', 'al@gmail.ru', '2RM/sJOBx6OHnb4=', 'aes-256-ofb', '@3BNRvf!58Wv+j(L', 'ZJoxE$_8bjvW))VrcFLAqv4yu%PBUZ');
 /*!40000 ALTER TABLE `at_adm_users` ENABLE KEYS */;
 
 -- Дамп структуры для таблица at_shop.at_news
 CREATE TABLE IF NOT EXISTS `at_news` (
   `ID_NEWS` int NOT NULL AUTO_INCREMENT,
-  `TITLE` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `TITLE` varchar(50) NOT NULL,
   `DATE` datetime NOT NULL,
-  `SHORT_CONTENT` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `FULL_CONTENT` longtext COLLATE utf8mb4_bin NOT NULL,
-  `AUTHOR_NAME` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `PREVIEW` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `TYPE` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL,
+  `SHORT_CONTENT` varchar(255) NOT NULL,
+  `FULL_CONTENT` longtext NOT NULL,
+  `AUTHOR_NAME` varchar(255) NOT NULL,
+  `PREVIEW` varchar(255) NOT NULL,
+  `TYPE` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ID_NEWS`),
   UNIQUE KEY `TITLE_IDX` (`TITLE`),
   KEY `DATE_IDX` (`DATE`),
   KEY `AUTHOR_NAME_IDX` (`AUTHOR_NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Дамп данных таблицы at_shop.at_news: ~0 rows (приблизительно)
+-- Дамп данных таблицы at_shop.at_news: ~3 rows (приблизительно)
 /*!40000 ALTER TABLE `at_news` DISABLE KEYS */;
 INSERT INTO `at_news` (`ID_NEWS`, `TITLE`, `DATE`, `SHORT_CONTENT`, `FULL_CONTENT`, `AUTHOR_NAME`, `PREVIEW`, `TYPE`) VALUES
 	(1, 'Алматы қаласының әкімдігі', '2021-01-23 17:45:34', 'Фасады 29 многоквартирных жилых домов в Бостандыкском районе отремонтированы с сохранением архитектурных форм.', 'Фасады 29 многоквартирных жилых домов в Бостандыкском районе отремонтированы с сохранением архитектурных форм.\r\nНа брифинге РСК аким Бостандыкского района города Алматы Алтай Рахимбетов рассказал об итогах социально-экономического развития района, ходе исполнения поручений акима города, а также планах на предстоящий период.\r\nВ Бостандыкском районе имеется 1886 многоквартирных жилых домов и насчитывается 655 дворов.\r\n“В 2020 году благоустроено 120 дворовых территорий, также за счет привлечения инвесторов благоустроены 20 детских площадок. На текущий год планируется капитальный ремонт 100 дворовых территорий и разработка ПСД на 70 дворов. Текущим ремонтом будет охвачено 130 дворовых территорий”, - сообщил Алтай Рахимбетов.\r\nВместе с тем в рамках работ по модернизации ЖКХ по Программе развития регионов до 2020 года произведен капитальный ремонт в 28 многоквартирных жилых домах (МЖД), из них отремонтированы кровли, фасад и инженерные сети в 8 МЖД, заменены 45 лифтов в 20 МЖД.\r\n“Очень много исторических домов в районе. Со временем эти дома постепенно теряют внешний вид. Именно по данным домам ведутся работы. В рамках ремонтных работ не менялся конструктив, архитектурные формы - производился только ремонт фасадов и окраска”, - разъяснил аким.\r\nТекущий ремонт фасадов произведен в 29 МЖД, в т.ч. за счет выделенных средств по “Дорожной карте занятости” отремонтированы 24 фасадов, инвесторами отремонтированы 5 фасадов. В этом году планируется проведение ремонтных работ в 39 МЖД по Программе модернизации МЖД.', 'Ольга Гумирова ', 'Фасады 29 многоквартирных жилых домов в Бостандыкском районе отремонтированы с сохранением архитектурных форм.', NULL),
@@ -62,15 +67,15 @@ INSERT INTO `at_news` (`ID_NEWS`, `TITLE`, `DATE`, `SHORT_CONTENT`, `FULL_CONTEN
 -- Дамп структуры для таблица at_shop.at_shop_cat
 CREATE TABLE IF NOT EXISTS `at_shop_cat` (
   `ID_CAT` int NOT NULL AUTO_INCREMENT,
-  `NAME_CAT` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `NAME_CAT` varchar(255) NOT NULL,
   `SORT_ORDER` int NOT NULL,
   `STATUS_CAT` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID_CAT`),
   UNIQUE KEY `NAME_CAT_IDX` (`NAME_CAT`),
   KEY `SORT_ORDER_IDX` (`SORT_ORDER`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Дамп данных таблицы at_shop.at_shop_cat: ~0 rows (приблизительно)
+-- Дамп данных таблицы at_shop.at_shop_cat: ~6 rows (приблизительно)
 /*!40000 ALTER TABLE `at_shop_cat` DISABLE KEYS */;
 INSERT INTO `at_shop_cat` (`ID_CAT`, `NAME_CAT`, `SORT_ORDER`, `STATUS_CAT`) VALUES
 	(1, 'Дрели/шуруповерты', 1, 1),
@@ -85,13 +90,13 @@ INSERT INTO `at_shop_cat` (`ID_CAT`, `NAME_CAT`, `SORT_ORDER`, `STATUS_CAT`) VAL
 CREATE TABLE IF NOT EXISTS `at_shop_prod` (
   `ID_PROD` int NOT NULL AUTO_INCREMENT,
   `ID_CAT` int NOT NULL,
-  `NAME_PROD` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `NAME_PROD` varchar(255) NOT NULL,
   `CODE_PROD` int NOT NULL,
   `PRICE_PROD` float NOT NULL,
   `AVAILABILITY` tinyint(1) NOT NULL DEFAULT '1',
-  `BRAND_PROD` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `IMAGE_PROD` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `DESCR_PROD` text COLLATE utf8mb4_bin NOT NULL,
+  `BRAND_PROD` varchar(255) NOT NULL,
+  `IMAGE_PROD` varchar(255) NOT NULL,
+  `DESCR_PROD` text NOT NULL,
   `IS_NEW` tinyint(1) NOT NULL DEFAULT '0',
   `IS_REC` tinyint(1) NOT NULL DEFAULT '0',
   `STATUS_PROD` tinyint(1) NOT NULL DEFAULT '1',
@@ -101,9 +106,9 @@ CREATE TABLE IF NOT EXISTS `at_shop_prod` (
   KEY `BRAND_PROD_IDX` (`BRAND_PROD`),
   KEY `FK_AT_SHOP__REFERENCE_AT_SHOP_` (`ID_CAT`),
   CONSTRAINT `FK_AT_SHOP__REFERENCE_AT_SHOP_` FOREIGN KEY (`ID_CAT`) REFERENCES `at_shop_cat` (`ID_CAT`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Дамп данных таблицы at_shop.at_shop_prod: ~0 rows (приблизительно)
+-- Дамп данных таблицы at_shop.at_shop_prod: ~38 rows (приблизительно)
 /*!40000 ALTER TABLE `at_shop_prod` DISABLE KEYS */;
 INSERT INTO `at_shop_prod` (`ID_PROD`, `ID_CAT`, `NAME_PROD`, `CODE_PROD`, `PRICE_PROD`, `AVAILABILITY`, `BRAND_PROD`, `IMAGE_PROD`, `DESCR_PROD`, `IS_NEW`, `IS_REC`, `STATUS_PROD`) VALUES
 	(1, 1, 'Шуруповерт ALTECO CID 2110.1 СID 0415', 6376854, 21315, 1, 'ALTECO', '/images/shop/1.jpg', 'Характеристики\r\nТип инструментадрель-шуруповерт\r\nТип патронабыстрозажимной\r\nКоличество скоростей работы2\r\nДиаметр патрона10 мм\r\nМаксимальное число оборотов холостого хода1600 об/мин\r\nМаксимальный крутящий момент35 Нм\r\nАккумулятор\r\nТип аккумулятораLi-Ion\r\nЕмкость аккумулятора2000 мАч\r\nНапряжение аккумулятора21 В\r\nПитаниеот аккумулятора\r\nДополнительно\r\nФункцииреверс, электронная регулировка частоты вращения\r\nНаличие удараударный\r\nПриспособлениялампа точечной подсветки\r\nКомплектациякейс, зарядное устройство, аккумулятор\r\nОсобенностисъемный аккумулятор', 1, 0, 1),
