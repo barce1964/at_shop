@@ -7,12 +7,12 @@
             <div class="col-sm-4 col-sm-offset-4 padding-right">
 
                 <?php if ($result): ?>
-                    <p>Сообщение отправлено! Мы ответим Вам на указанный email.</p>
+                    <p id="blink2">Спасибо! Мы ответим Вам на указанный email.</p>
                 <?php else: ?>
                     <?php if (isset($errors) && is_array($errors)): ?>
                         <ul>
                             <?php foreach ($errors as $error): ?>
-                                <li> - <?php echo $error; ?></li>
+                                <li id="blink1"> - <?php echo $error; ?></li>
                             <?php endforeach; ?>
                         </ul>
                     <?php endif; ?>
@@ -25,7 +25,7 @@
                             <p>Ваша почта</p>
                             <input type="email" name="userEmail" placeholder="E-mail" value="<?php echo $userEmail; ?>"/>
                             <p>Тема</p>
-                            <input type="email" name="userSubject" placeholder="Тема" value="<?php echo $userSubject; ?>"></input>
+                            <input name="userSubject" placeholder="Тема" value="<?php echo $userSubject; ?>"></input>
                             <p>Сообщение</p>
                             <textarea type="text" rows="5" cols="50" name="userText" placeholder="Сообщение" value="<?php echo $userText; ?>"></textarea>
                             <br/><br/>

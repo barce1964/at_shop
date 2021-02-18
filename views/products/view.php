@@ -41,10 +41,8 @@
                                     <span><?php echo $product[0]['price_prod'];?> Тенге</span>
                                     <label>Количество:</label>
                                     <input type="text" value="3" />
-                                    <button type="button" class="btn btn-fefault cart">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        В корзину
-                                    </button>
+                                    <a href="/cart/add/<?php echo $product['id']; ?>" class="btn btn-default add-to-cart"
+											data-id="<?php echo $product['id']; ?>"><i class="fa fa-shopping-cart"></i>В корзину</a>
                                 </span>
                                 <p><b>Наличие:</b> На складе</p>
                                 <p><b>Состояние:</b> Новое</p>

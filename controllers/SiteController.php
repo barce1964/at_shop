@@ -18,10 +18,16 @@
 
         public function actionContact() {
             require_once ROOT . '/mailer/PHPMailerAutoload.php';
-            $mail = new PHPMailer;
-            $mail->CharSet = 'utf-8';
-                
-            $userEmail = '';
+
+            if (isset($_SESSION['user'])) {
+                $user = User::getUserById($_SESSION['user']);
+                $userEmail = $user['email_user'];
+                $userName = $user['name_user'];
+            } else {
+                $userEmail = '';
+                $userName = '';
+            }
+            
             $userSubject = '';
             $userText = '';
             $result = false;
@@ -40,15 +46,35 @@
                 }
                 
                 if ($errors == false) {
-                    $adminEmail = 'alexvictar@mail.ru';
-                    $message = "Текст: {$userText}. От {$userEmail}";
-                    $subject = $userSubject;    
-                    // $result = mail($adminEmail, $subject, $message);
-                    // $result = true;
+                    $mail = new PHPMailer;
+                    $mail->CharSet = 'utf-8';
+
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'alexvictar@gmail.com';
+                    $mail->Password = 'Ale20X10v19T1964_ex10';
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->Port = 465;
+ 
+                    $mail->setFrom($userEmail, $userName); 
+                    $mail->addAddress('alexvictar@mail.ru');
+
+                    $mail->isHTML(true);
+
+                    $mail->Subject = $userSubject;
+                    $mail->Body = $userText;
+
+                    if(!$mail->send()) {
+                        $result = false;
+                    } else {
+                        $result = true;
+                    }
+                    
                 }
     
             }
-            
+
             require_once(ROOT . '/views/site/contact.php');
             
             return true;
