@@ -83,6 +83,33 @@
         //     return $productsList;
         // }
 
+        public static function getProdustsByIds($idsArray) {
+            include_once ROOT . '/db/connect.php';
+            $connect = new DB;
+            
+            $products = array();
+            
+            //$db = Db::getConnection();
+            
+            $idsString = implode(',', $idsArray);
+            
+            $sql = "SELECT * FROM at_shop_prod WHERE status_prod='1' AND id_prod IN ($idsString)";
+    
+            // $result = $db->query($sql);        
+            // $result->setFetchMode(PDO::FETCH_ASSOC);
+            
+            // $i = 0;
+            // while ($row = $result->fetch()) {
+            //     $products[$i]['id'] = $row['id'];
+            //     $products[$i]['code'] = $row['code'];
+            //     $products[$i]['name'] = $row['name'];
+            //     $products[$i]['price'] = $row['price'];
+            //     $i++;
+            // }
+    
+            // return $products;
+            return $connect->getList($sql, 8);
+        }
     }
 
 ?>

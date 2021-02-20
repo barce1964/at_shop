@@ -23,7 +23,7 @@
 
             $result = mysqli_query($con, $qry)
                 or die("Ошибка " . mysqli_error($con));
-
+            
             $i = 0;
             switch ($idx) {
                 case 1:
@@ -106,6 +106,16 @@
                         }
                         print_r($returnList);
                         break;
+
+                    case 8:
+                        $returnList = array();
+                        while ($row = mysqli_fetch_row($result)) {
+                            $returnList[$i]['id_prod'] = $row[0];
+                            $returnList[$i]['code_prod'] = $row[3];
+                            $returnList[$i]['name_prod'] = $row[2];
+                            $returnList[$i]['price_prod'] = $row[4];
+                            $i++;
+                        }
         
                 default:
                     # code...

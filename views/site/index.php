@@ -40,8 +40,8 @@
                                                 <?php echo $product['name_prod'];?>
                                             </a>
                                         </p>
-                                        <a href="/cart/add/<?php echo $product['id']; ?>" class="btn btn-default add-to-cart"
-											data-id="<?php echo $product['id']; ?>"><i class="fa fa-shopping-cart"></i>В корзину</a>
+                                        <a href="/cart/add/<?php echo $product['id_prod']; ?>" class="btn btn-default add-to-cart"
+											data-id="<?php echo $product['id_prod']; ?>"><i class="fa fa-shopping-cart"></i>В корзину</a>
                                     </div>
                                     <?php if ($product['is_new']): ?>
                                         <img src="../../images/home/new.png" class="new" alt="" />

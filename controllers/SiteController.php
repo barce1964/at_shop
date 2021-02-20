@@ -37,7 +37,7 @@
                 $userEmail = $_POST['userEmail'];
                 $userSubject = $_POST['userSubject'];
                 $userText = $_POST['userText'];
-        
+      
                 $errors = false;
                             
                 // Валидация полей
@@ -46,6 +46,7 @@
                 }
                 
                 if ($errors == false) {
+
                     $mail = new PHPMailer;
                     $mail->CharSet = 'utf-8';
 
@@ -57,7 +58,12 @@
                     $mail->SMTPSecure = 'ssl';
                     $mail->Port = 465;
  
-                    $mail->setFrom($userEmail, $userName); 
+                    if ($userName != '') {
+                        $mail->setFrom($userEmail, $userName);
+                    } else {
+                        $mail->setFrom($userEmail, $userEmail);
+                    }
+                     
                     $mail->addAddress('alexvictar@mail.ru');
 
                     $mail->isHTML(true);
