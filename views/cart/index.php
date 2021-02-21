@@ -34,6 +34,7 @@
                                 <th>Название</th>
                                 <th>Стомость, тг</th>
                                 <th>Количество, шт</th>
+                                <th>Удалить</th>
                             </tr>
                             <?php foreach ($products as $product): ?>
                                 <tr>
@@ -44,7 +45,12 @@
                                         </a>
                                     </td>
                                     <td><?php echo $product['price_prod'];?></td>
-                                    <td><?php echo $productsInCart[$product['id_prod']];?></td>                        
+                                    <td><?php echo $productsInCart[$product['id_prod']];?></td>
+                                    <td>
+                                        <a class="btn btn-default checkout" href="/cart/delete/<?php echo $product['id_prod'];?>">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                                 <tr>
