@@ -89,10 +89,11 @@
                             $returnList['id_user'] = $row[0];
                             $returnList['name_user'] = $row[1];
                             $returnList['email_user'] = $row[2];
-                            $returnList['pwd_user'] = $row[3];
-                            $returnList['user_cif'] = $row[4];
-                            $returnList['user_iv'] = $row[5];
-                            $returnList['user_key'] = $row[6];
+                            $returnList['phone_user'] = $row[3];
+                            $returnList['pwd_user'] = $row[4];
+                            $returnList['user_cif'] = $row[5];
+                            $returnList['user_iv'] = $row[6];
+                            $returnList['user_key'] = $row[7];
                         }
                         break;
 
@@ -116,7 +117,27 @@
                             $returnList[$i]['price_prod'] = $row[4];
                             $i++;
                         }
+                        break;
+
+                    case 9:
+                        $returnList = array();
+                        $row = mysqli_fetch_row($result);
+                        $returnList['name_ord'] = $row[0];
+                        $returnList['date_ord'] = $row[1];
+                        $returnList['total_ord'] = $row[2];
+                        break;
         
+                    case 10:
+                        $returnList = array();
+                        while ($row = mysqli_fetch_row($result)) {
+                            $returnList[$i]['prod_name'] = $row[0];
+                            $returnList[$i]['prod_price'] = $row[1];
+                            $returnList[$i]['prod_quantity'] = $row[2];
+                            $returnList[$i]['prod_sum'] = $row[3];
+                            $i++;
+                        }
+                        break;
+
                 default:
                     # code...
                     break;
