@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `at_adm_users` (
   `ID_USER` int NOT NULL AUTO_INCREMENT,
   `NAME_USER` varchar(20) NOT NULL,
   `EMAIL_USER` varchar(60) NOT NULL,
+  `PHONE_USER` varchar(20) NOT NULL,
   `PWD_USER` varchar(255) NOT NULL,
   `USER_CIF` varchar(50) NOT NULL,
   `USER_IV` varchar(100) NOT NULL,
@@ -30,14 +31,14 @@ CREATE TABLE IF NOT EXISTS `at_adm_users` (
   UNIQUE KEY `EMAIL_USER_IDX` (`EMAIL_USER`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Дамп данных таблицы at_shop.at_adm_users: ~0 rows (приблизительно)
+-- Дамп данных таблицы at_shop.at_adm_users: ~5 rows (приблизительно)
 /*!40000 ALTER TABLE `at_adm_users` DISABLE KEYS */;
-INSERT INTO `at_adm_users` (`ID_USER`, `NAME_USER`, `EMAIL_USER`, `PWD_USER`, `USER_CIF`, `USER_IV`, `USER_KEY`) VALUES
-	(1, 'Alex', 'alexvictar@mail.ru', 'ciFTNN64/X32phc=', 'aes-256-ofb', '&?1Y%<eJL@myY$|o', '@n=x7Q6@]I4*V]Mg*epLgTd-wA2-jxD7'),
-	(2, 'Marina', 'al@mail.ru', '5Mwfa/zOiZmX', 'aes-256-ofb', '$bY:vAZWs!$iVX0m', '{HmrIxnXDxPg1aw6VIv;o3|9l{kD9;uV'),
-	(3, 'Vladimir', 'vladimir@mail.ru', 'xbN9QNuYcggDkHLk', 'aes-256-ofb', '#vr<20vJJR4b0rtP', 'KZi(<{{=1TxBH?FlIGTL3w2OW%83)5t'),
-	(4, 'Ruslan', 'tr@mail.ru', '6x8sQpDzeQGNUDw=', 'aes-256-ofb', 'qrJpcpyW[xr$oP&U', 'a{RdVvr(AzO!C7D8)*pTlu&cYl38(fU'),
-	(5, 'ac', 'al@gmail.ru', '2RM/sJOBx6OHnb4=', 'aes-256-ofb', '@3BNRvf!58Wv+j(L', 'ZJoxE$_8bjvW))VrcFLAqv4yu%PBUZ');
+INSERT INTO `at_adm_users` (`ID_USER`, `NAME_USER`, `EMAIL_USER`, `PHONE_USER`, `PWD_USER`, `USER_CIF`, `USER_IV`, `USER_KEY`) VALUES
+	(1, 'Alex', 'alexvictar@mail.ru', '+77771210112', 'ciFTNN64/X32phc=', 'aes-256-ofb', '&?1Y%<eJL@myY$|o', '@n=x7Q6@]I4*V]Mg*epLgTd-wA2-jxD7'),
+	(2, 'Marina', 'al@mail.ru', '+77014960345', '5Mwfa/zOiZmX', 'aes-256-ofb', '$bY:vAZWs!$iVX0m', '{HmrIxnXDxPg1aw6VIv;o3|9l{kD9;uV'),
+	(3, 'Vladimir', 'vladimir@mail.ru', '+77473639891', 'xbN9QNuYcggDkHLk', 'aes-256-ofb', '#vr<20vJJR4b0rtP', 'KZi(<{{=1TxBH?FlIGTL3w2OW%83)5t'),
+	(4, 'Ruslan', 'tr@mail.ru', '+77083452687', '6x8sQpDzeQGNUDw=', 'aes-256-ofb', 'qrJpcpyW[xr$oP&U', 'a{RdVvr(AzO!C7D8)*pTlu&cYl38(fU'),
+	(5, 'ac', 'al@gmail.ru', '+77058156340', '2RM/sJOBx6OHnb4=', 'aes-256-ofb', '@3BNRvf!58Wv+j(L', 'ZJoxE$_8bjvW))VrcFLAqv4yu%PBUZ');
 /*!40000 ALTER TABLE `at_adm_users` ENABLE KEYS */;
 
 -- Дамп структуры для таблица at_shop.at_news
@@ -85,6 +86,58 @@ INSERT INTO `at_shop_cat` (`ID_CAT`, `NAME_CAT`, `SORT_ORDER`, `STATUS_CAT`) VAL
 	(5, 'Электролобзики', 4, 1),
 	(6, 'Аккумуляторные отвертки', 6, 0);
 /*!40000 ALTER TABLE `at_shop_cat` ENABLE KEYS */;
+
+-- Дамп структуры для таблица at_shop.at_shop_orders
+CREATE TABLE IF NOT EXISTS `at_shop_orders` (
+  `ID_ORD` int NOT NULL AUTO_INCREMENT,
+  `ID_USER` int NOT NULL,
+  `NAME_ORD` varchar(50) NOT NULL,
+  `DATE_ORD` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `TOTAL_ORD` float NOT NULL,
+  `ORD_IS_FINISH` int NOT NULL DEFAULT '0',
+  `ORD_IS_DETAIL` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID_ORD`),
+  KEY `NAME_ORD_IDX` (`NAME_ORD`),
+  KEY `DATE_ORD_IDX` (`DATE_ORD`),
+  KEY `FK_AT_SHOP__REFERENCE_AT_ADM_U` (`ID_USER`),
+  CONSTRAINT `FK_AT_SHOP__REFERENCE_AT_ADM_U` FOREIGN KEY (`ID_USER`) REFERENCES `at_adm_users` (`ID_USER`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Дамп данных таблицы at_shop.at_shop_orders: ~8 rows (приблизительно)
+/*!40000 ALTER TABLE `at_shop_orders` DISABLE KEYS */;
+INSERT INTO `at_shop_orders` (`ID_ORD`, `ID_USER`, `NAME_ORD`, `DATE_ORD`, `TOTAL_ORD`, `ORD_IS_FINISH`, `ORD_IS_DETAIL`) VALUES
+	(18, 1, 'Alex', '2021-02-24 11:07:04', 616590, 1, 1),
+	(19, 1, 'Alex', '2021-02-24 11:19:10', 350776, 1, 1);
+/*!40000 ALTER TABLE `at_shop_orders` ENABLE KEYS */;
+
+-- Дамп структуры для таблица at_shop.at_shop_order_detail
+CREATE TABLE IF NOT EXISTS `at_shop_order_detail` (
+  `ID_ORD` int NOT NULL,
+  `PROD_NAME` varchar(255) NOT NULL,
+  `PROD_PRICE` float NOT NULL,
+  `PROD_QUANTITY` int NOT NULL,
+  `PROD_SUM` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Дамп данных таблицы at_shop.at_shop_order_detail: ~0 rows (приблизительно)
+/*!40000 ALTER TABLE `at_shop_order_detail` DISABLE KEYS */;
+INSERT INTO `at_shop_order_detail` (`ID_ORD`, `PROD_NAME`, `PROD_PRICE`, `PROD_QUANTITY`, `PROD_SUM`) VALUES
+	(18, 'Перфоратор CROWN CT18102', 29005, 1, 29005),
+	(18, 'Перфоратор Bosch GBH 240', 41000, 1, 41000),
+	(18, 'Набор инструментов Forsage F-38841 216 предметов', 48130, 1, 48130),
+	(18, 'Набор инструментов FORCE 41421 142 предмета', 100200, 1, 100200),
+	(18, 'Болгарка CROWN CT13034', 15754, 1, 15754),
+	(18, 'Болгарка Bosch GWS 660 060137508N', 13599, 1, 13599),
+	(18, 'Электролобзик Bort BPS-18LI-Q 93720384', 56397, 1, 56397),
+	(18, 'Электролобзик RYOBI One+ R18JS-0', 40080, 1, 40080),
+	(18, 'Шуруповерт DeWALT DW269K-QS', 135000, 1, 135000),
+	(18, 'Аккумуляторный ударный шуруповерт Makita DTP141Z', 137425, 1, 137425),
+	(19, 'Перфоратор Bosch GBH 240', 41000, 1, 41000),
+	(19, 'Набор инструментов FORCE 41421 142 предмета', 100200, 1, 100200),
+	(19, 'Болгарка CROWN CT13034', 15754, 1, 15754),
+	(19, 'Электролобзик Bort BPS-18LI-Q 93720384', 56397, 1, 56397),
+	(19, 'Аккумуляторный ударный шуруповерт Makita DTP141Z', 137425, 1, 137425);
+/*!40000 ALTER TABLE `at_shop_order_detail` ENABLE KEYS */;
 
 -- Дамп структуры для таблица at_shop.at_shop_prod
 CREATE TABLE IF NOT EXISTS `at_shop_prod` (

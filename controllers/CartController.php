@@ -47,6 +47,19 @@
             return true;
         }
 
+        private static function getHTML($ord, $ordDetail) {
+            $result = "";
+            foreach ($ordDetail as $product) {
+                $result = $result . "<tr>";
+                $result = $result . "<td>" . $product['prod_name'] . "</td>";
+                $result = $result . "<td align='right'>" . $product['prod_price'] . "</td>";
+                $result = $result . "<td align='right'>" . $product['prod_quantity'] . "</td>";
+                $result = $result . "<td align='right'>" . $product['prod_sum'] . "</td></tr>";
+            }
+            $result = $result . "<tr><td colspan='3'>Общая стоимость:</td><td align='right'>" . $ord['total_ord'] . ", тг</td></tr>";
+            return $result;
+        }
+
         public function actionCheckout() {
 
             // Список категорий для левого меню
@@ -106,12 +119,31 @@
                             <html>
                                 <head>
                                     <meta charset='utf-8'>
+                                    <style type='text/css'>
+                                        h4 {
+                                            padding-top: 0px;
+                                            padding-bottom: 0px;
+                                            font-size: 20px; 
+                                            font-family: Verdana, Arial, Helvetica, sans-serif; 
+                                            color: #AA4433;
+                                        }
+                                    </style>
                                 </head>
                                 <body>
-                                    <h3>$userName</h3><br>
-                                    <h3>$userEmail</h3><br>
-                                    <H3>$userPhone</H3><br>
-                                </body>";
+                                    <h4>Имя:      $userName</h4>
+                                    <h4>Email:    $userEmail</h4>
+                                    <H4>Телефон:  $userPhone</H4>
+                                    <br><br>
+                                    <table>
+                                        <tr>
+                                            <th>Название</th>
+                                            <th>Стомость, тг</th>
+                                            <th>Количество, шт</th>
+                                            <th>Сумма, тг</th>
+                                        </tr>" . self::getHTML($ord, $ordDetail) .
+                                    "</table>
+                                </body>
+                            </html>";
 
                         $mail = new PHPMailer;
                         $mail->CharSet = 'utf-8';
@@ -138,14 +170,9 @@
                         } else {
                             $result = true;
                         }
-                        // // Оповещаем администратора о новом заказе                
-                        // $adminEmail = 'php.start@mail.ru';
-                        // $message = 'http://digital-mafia.net/admin/orders';
-                        // $subject = 'Новый заказ!';
-                        // mail($adminEmail, $subject, $message);
-
+                        
                         // Очищаем корзину
-                        //Cart::clear();
+                        Cart::clear();
                     }
                 } else {
                     // Форма заполнена корректно? - Нет

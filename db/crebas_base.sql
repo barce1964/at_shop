@@ -169,7 +169,7 @@ create table AT_SHOP_ORDERS
    ID_ORD               int not null AUTO_INCREMENT,
    ID_USER              int not null,
    NAME_ORD             varchar(50) not null,
-   DATE_ORD             datetime not null,
+   DATE_ORD             datetime not null DEFAULT CURRENT_TIMESTAMP,
    TOTAL_ORD            float not null,
    ORD_IS_FINISH        int default 0 not null,
    ORD_IS_DETAIL        int default 0 not null,
