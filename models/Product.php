@@ -61,27 +61,15 @@
             return $connect->getList($query, 5);
         }
 
-        // public static function getRecommendedProducts() {
-        //     $db = Db::getConnection();
+        public static function getRecommendedProducts() {
+            include_once ROOT . '/db/connect.php';
+            $connect = new DB;
 
-        //     $productsList = array();
+           $sql = 'SELECT id_prod, name_prod, price_prod, image_prod, is_new FROM at_shop_prod
+            WHERE status_prod = "1" AND is_rec = "1"';
 
-        //     $result = $db->query('SELECT id, name, price, image, is_new FROM product '
-        //         . 'WHERE status = "1" AND is_recommended = "1"'
-        //         . 'ORDER BY id DESC ');
-
-        //     $i = 0;
-        //     while ($row = $result->fetch()) {
-        //         $productsList[$i]['id'] = $row['id'];
-        //         $productsList[$i]['name'] = $row['name'];
-        //         $productsList[$i]['image'] = $row['image'];
-        //         $productsList[$i]['price'] = $row['price'];
-        //         $productsList[$i]['is_new'] = $row['is_new'];
-        //         $i++;
-        //     }
-
-        //     return $productsList;
-        // }
+            return $connect->getList($sql, 11);
+        }
 
         public static function getProdustsByIds($idsArray) {
             include_once ROOT . '/db/connect.php';

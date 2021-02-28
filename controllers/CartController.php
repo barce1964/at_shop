@@ -109,6 +109,7 @@
                         $userName = $user['name_user'];
                         $userPhone = $user['phone_user'];
                         $ord = Order::getOrd($result);
+                        $nameOrd = $ord['name_ord'];
                         $ordDetail = Order::getOrdDetail($result);
 
                         // print_r($ord);
@@ -130,7 +131,7 @@
                                     </style>
                                 </head>
                                 <body>
-                                    <h4>Имя:      $userName</h4>
+                                    <h4>Код заказа:      $nameOrd</h4>
                                     <h4>Email:    $userEmail</h4>
                                     <H4>Телефон:  $userPhone</H4>
                                     <br><br>

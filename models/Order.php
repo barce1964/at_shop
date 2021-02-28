@@ -2,6 +2,20 @@
 
     class Order{
 
+        private static function genNumOrd() {
+            $i = 1;
+            $strg = '';
+            while ($i <= 10) {
+                $shr_code = mt_rand ( 48, 90);
+                if (($shr_code >= 48 && $shr_code <= 57) || ($shr_code >= 65 && $shr_code <= 90)) {
+                    $shr = chr($shr_code);
+                    $strg = $strg . $shr;
+                    $i++;
+                }
+            }
+            return $strg;
+        }
+
         /**
          * Сохранение заказа 
          * @param type $name
@@ -15,11 +29,12 @@
             $prodKeys = array_keys($products);
             $productList = Product::getProdustsByIds($prodKeys);
             $total = Cart::getTotalPrice($productList);
+            $nameOrd = $userId . '-' . $userName . '-' . self::genNumOrd();
             
             $connect = new DB();
 
             $sql = "INSERT INTO at_shop_orders (id_user, name_ord, total_ord, ord_is_finish)
-                VALUES ($userId, '$userName', $total, 1)";
+                VALUES ($userId, '$nameOrd', $total, 1)";
             $err1 = $connect->insertRowToDB($sql);
             
             $sql = "SELECT id_ord FROM at_shop_orders WHERE id_user = $userId AND ord_is_detail = 0";

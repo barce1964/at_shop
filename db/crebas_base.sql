@@ -179,7 +179,7 @@ create table AT_SHOP_ORDERS
 /*==============================================================*/
 /* Index: NAME_ORD_IDX                                          */
 /*==============================================================*/
-create index NAME_ORD_IDX on AT_SHOP_ORDERS
+create unique index NAME_ORD_IDX on AT_SHOP_ORDERS
 (
    NAME_ORD
 );
