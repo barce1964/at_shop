@@ -4,6 +4,12 @@
 /*==============================================================*/
 
 
+alter table AT_ADM_CON_USERS_ROLES 
+   drop foreign key FK_AT_ADM_C_REFERENCE_AT_ADM_U;
+
+alter table AT_ADM_CON_USERS_ROLES 
+   drop foreign key FK_AT_ADM_C_REFERENCE_AT_ADM_R;
+
 alter table AT_SHOP_ORDERS 
    drop foreign key FK_AT_SHOP__REFERENCE_AT_ADM_U;
 
@@ -12,6 +18,18 @@ alter table AT_SHOP_ORDER_DETAIL
 
 alter table AT_SHOP_PROD 
    drop foreign key FK_AT_SHOP__REFERENCE_AT_SHOP_;
+
+alter table AT_ADM_CON_USERS_ROLES 
+   drop foreign key FK_AT_ADM_C_REFERENCE_AT_ADM_U;
+
+alter table AT_ADM_CON_USERS_ROLES 
+   drop foreign key FK_AT_ADM_C_REFERENCE_AT_ADM_R;
+
+drop table if exists AT_ADM_CON_USERS_ROLES;
+
+drop index NAME_ROLE_IDX on AT_ADM_ROLES;
+
+drop table if exists AT_ADM_ROLES;
 
 drop index EMAIL_USER_IDX on AT_ADM_USERS;
 
@@ -60,6 +78,33 @@ alter table AT_SHOP_PROD
    drop foreign key FK_AT_SHOP__REFERENCE_AT_SHOP_;
 
 drop table if exists AT_SHOP_PROD;
+
+/*==============================================================*/
+/* Table: AT_ADM_CON_USERS_ROLES                                */
+/*==============================================================*/
+create table AT_ADM_CON_USERS_ROLES
+(
+   ID_USER              int not null,
+   ID_ROLE              int not null
+);
+
+/*==============================================================*/
+/* Table: AT_ADM_ROLES                                          */
+/*==============================================================*/
+create table AT_ADM_ROLES
+(
+   ID_ROLE              int not null AUTO_INCREMENT,
+   NAME_ROLE            varchar(255),
+   primary key (ID_ROLE)
+);
+
+/*==============================================================*/
+/* Index: NAME_ROLE_IDX                                         */
+/*==============================================================*/
+create unique index NAME_ROLE_IDX on AT_ADM_ROLES
+(
+   NAME_ROLE
+);
 
 /*==============================================================*/
 /* Table: AT_ADM_USERS                                          */
@@ -247,6 +292,12 @@ create index BRAND_PROD_IDX on AT_SHOP_PROD
 (
    BRAND_PROD
 );
+
+alter table AT_ADM_CON_USERS_ROLES add constraint FK_AT_ADM_C_REFERENCE_AT_ADM_U foreign key (ID_USER)
+      references AT_ADM_USERS (ID_USER) on delete restrict on update restrict;
+
+alter table AT_ADM_CON_USERS_ROLES add constraint FK_AT_ADM_C_REFERENCE_AT_ADM_R foreign key (ID_ROLE)
+      references AT_ADM_ROLES (ID_ROLE) on delete restrict on update restrict;
 
 alter table AT_SHOP_ORDERS add constraint FK_AT_SHOP__REFERENCE_AT_ADM_U foreign key (ID_USER)
       references AT_ADM_USERS (ID_USER) on delete restrict on update restrict;

@@ -59,7 +59,14 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
-                            <ul class="nav navbar-nav">                                    
+                            <ul class="nav navbar-nav">
+                                <?php if (!User::isGuest()): ?>
+                                    <?php if (AdminBase::checkAdmin()): ?>
+                                        <li>
+                                            <a href="/admin"><i class="fa fa-user"></i>Панель администратора</a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                                 <li><a href="/cart">
                                         <i class="fa fa-shopping-cart"></i> Корзина
                                         (<span id="cart-count"><?php echo Cart::countItems();?></span>)

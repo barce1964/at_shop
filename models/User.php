@@ -15,7 +15,7 @@
             return $strg;
         }
 
-        public static function register($name, $email, $password) {
+        public static function register($name, $email, $phone, $password) {
 
             include_once ROOT . '/db/connect.php';
             $connect = new DB();
@@ -25,8 +25,8 @@
             $pwd = openssl_encrypt($password, $cipher, $key, $options=0, $iv);
             //$pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
             
-            $query = 'INSERT INTO at_adm_users (name_user, email_user, pwd_user, user_cif, user_iv, user_key) '
-                . "VALUES ('$name', '$email', '$pwd', '$cipher', '$iv', '$key')";
+            $query = 'INSERT INTO at_adm_users (name_user, email_user, phone_user, pwd_user, user_cif, user_iv, user_key) '
+                . "VALUES ('$name', '$email', '$phone', '$pwd', '$cipher', '$iv', '$key')";
             
             return $connect->insertRowToDB($query);
         }
@@ -36,14 +36,14 @@
          * @param string $name
          * @param string $password
          */
-        public static function edit($id, $name, $email, $password) {
+        public static function edit($id, $name, $email, $phone, $password) {
             //$db = Db::getConnection();
             $connect = new DB();
             $cipher = "aes-256-ofb";
             $iv = User::genStr(16);//openssl_random_pseudo_bytes($ivlen);
             $key = User::genStr(32);
             $pwd = openssl_encrypt($password, $cipher, $key, $options=0, $iv);
-            $sql = "UPDATE at_adm_users SET name_user = '$name', email_user = '$email',
+            $sql = "UPDATE at_adm_users SET name_user = '$name', email_user = '$email', phone_user = '$phone',
                 pwd_user = '$pwd', user_cif = '$cipher', user_iv = '$iv', user_key = '$key'
                 WHERE id_user = $id";
         
@@ -87,6 +87,7 @@
          */
         public static function auth($userId) {
             $_SESSION['user'] = $userId;
+            AdminBase::getRoles();
         }
 
         public static function checkLogged() {
@@ -168,6 +169,18 @@
                 $sql = 'SELECT * FROM at_adm_users WHERE id_user = ' . $id;
 
                 return $connect->getList($sql, 6);
+            }
+        }
+
+        public static function getUserRoles($Id) {
+            include_once ROOT . '/db/connect.php';
+
+            if ($Id) {
+                $connect = new DB();
+                $sql = "SELECT a.id_user, b.id_role FROM at_adm_users a, at_adm_roles b, at_adm_con_users_roles c
+                    WHERE a.id_user = $Id AND a.id_user = c.id_user AND c.id_role = b.id_role";
+                
+                return $connect->getList($sql, 12);
             }
         }
     }

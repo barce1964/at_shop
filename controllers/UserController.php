@@ -5,12 +5,14 @@
         public function actionRegister() {
             $name = '';
             $email = '';
+            $phone = '';
             $password = '';
             $result = false;
             
             if (isset($_POST['submit'])) {
                 $name = $_POST['name'];
                 $email = $_POST['email'];
+                $phone = $_POST['phone'];
                 $password = $_POST['password'];
                 
                 $errors = false;
@@ -31,8 +33,12 @@
                     $errors[] = 'Такой email уже используется';
                 }
                 
+                if (!User::checkPhone($phone)) {
+                    $errors[] = 'Номер телефона должен быть не менее 10 цифр';
+                }
+
                 if ($errors == false) {
-                    $result = User::register($name, $email, $password);
+                    $result = User::register($name, $email, $phone, $password);
                 }
 
             }
@@ -87,6 +93,7 @@
          */
         public function actionLogout() {
             unset($_SESSION["user"]);
+            unset($_SESSION['roles']);
             header("Location: /");
         }
     }

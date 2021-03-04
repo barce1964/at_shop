@@ -24,6 +24,7 @@
             
             $name = $user['name_user'];
             $email = $user['email_user'];
+            $phone = $user['phone_user'];
             $pwd = $user['pwd_user'];
             $cif = $user['user_cif'];
             $iv = $user['user_iv'];
@@ -35,6 +36,7 @@
             if (isset($_POST['submit'])) {
                 $name = $_POST['name'];
                 $email = $_POST['email'];
+                $phone = $_POST['phone'];
                 $password = $_POST['password'];
                                 
                 $errors = false;
@@ -54,7 +56,7 @@
                 }
                 
                 if ($errors == false) {
-                    $result = User::edit($userId, $name, $email, $password);
+                    $result = User::edit($userId, $name, $email, $phone, $password);
                 }
 
             }

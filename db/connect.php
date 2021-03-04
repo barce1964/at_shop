@@ -150,6 +150,15 @@
                         }
                         break;
 
+                    case 12:
+                        $returnList = array();
+                        while ($row = mysqli_fetch_row($result)) {
+                            $returnList[$i]['id_user'] = $row[0];
+                            $returnList[$i]['id_role'] = $row[1];
+                            $i++;
+                        }
+                        break;
+
                 default:
                     # code...
                     break;
