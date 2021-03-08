@@ -18,9 +18,11 @@
             //$roles = User::getUserRoles($userId);
 
             // Если роль текущего пользователя "admin", пускаем его в админпанель
-            foreach ($_SESSION['roles'] as $role) {
-                if ($role['id_role'] == 1) {
-                    return true;
+            if (isset($_SESSION['roles'])) {
+                foreach ($_SESSION['roles'] as $role) {
+                    if ($role['id_role'] == 1) {
+                        return true;
+                    }
                 }
             }
 

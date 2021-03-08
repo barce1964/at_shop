@@ -87,13 +87,16 @@
         * Возвращает список товаров
         * @return array <p>Массив с товарами</p>
         */
-        public static function getProductsList() {
+        public static function getProductsList($idCat = false) {
             // Соединение с БД
             //$db = Db::getConnection();
             include_once ROOT . '/db/connect.php';
             $connect = new DB();
-
-            $sql = 'SELECT * FROM at_shop_prod ORDER BY id_prod ASC';
+            if ($idCat) {
+                $sql = "SELECT * FROM at_shop_prod WHERE id_cat = $idCat ORDER BY id_prod ASC";
+            } else {
+                $sql = 'SELECT * FROM at_shop_prod ORDER BY id_prod ASC';
+            }
             // Получение и возврат результатов
             // $result = $db->query('SELECT id, name, price, code FROM product ORDER BY id ASC');
             // $productsList = array();

@@ -85,7 +85,7 @@ drop table if exists AT_SHOP_PROD;
 create table AT_ADM_CON_USERS_ROLES
 (
    ID_USER              int not null,
-   ID_ROLE              int not null
+   ID_ROLE              int not null default 2
 );
 
 /*==============================================================*/
@@ -186,7 +186,7 @@ create table AT_SHOP_CAT
    ID_CAT               int not null AUTO_INCREMENT,
    NAME_CAT             varchar(255) not null,
    SORT_ORDER           int not null,
-   STATUS_CAT           bool not null default 1,
+   STATUS_CAT           int not null default 1,
    primary key (ID_CAT)
 );
 
@@ -259,13 +259,13 @@ create table AT_SHOP_PROD
    NAME_PROD            varchar(255) not null,
    CODE_PROD            int not null,
    PRICE_PROD           float not null,
-   AVAILABILITY         bool not null default 1,
+   AVAILABILITY         int not null default 1,
    BRAND_PROD           varchar(255) not null,
    IMAGE_PROD           varchar(255) not null,
    DESCR_PROD           text not null,
-   IS_NEW               bool not null default 0,
-   IS_REC               bool not null default 0,
-   STATUS_PROD          bool not null default 1,
+   IS_NEW               int not null default 0,
+   IS_REC               int not null default 0,
+   STATUS_PROD          int not null default 1,
    primary key (ID_PROD)
 );
 

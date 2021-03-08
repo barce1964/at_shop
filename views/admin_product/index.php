@@ -12,7 +12,19 @@
                     <li class="active">Управление товарами</li>
                 </ol>
             </div>
-
+            
+            <form action="#" method="post">
+                <?php echo "test"; ?>
+                <div class="seladm">
+                    <label class="active">Категории товаров:</label>
+                    <select name="selcat" class="selcat" size='5' onchange='this.form.submit()>
+                        <?php foreach ($categories as $category): ?>
+                            <option value = "/admin/product/<?php echo $category['id_cat']; ?>"><?php echo $category['name_cat']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </form>
+            <?php echo "test"; ?>
             <a href="/admin/product/create" class="btn btn-default back"><i class="fa fa-plus"></i> Добавить товар</a>
             
             <h4>Список товаров</h4>

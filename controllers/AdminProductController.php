@@ -10,16 +10,35 @@
          * Action для страницы "Управление товарами"
          */
         public function actionIndex() {
-            // Проверка доступа
-            self::checkAdmin();
+            // // Проверка доступа
+            // self::checkAdmin();
+
+            // Получаем список категорий товаров
+            $categories = Category::getCategoriesList();
 
             // Получаем список товаров
-            $productsList = Product::getProductsList();
+            $productsList = Product::getProductsList(1);
 
             // Подключаем вид
             require_once(ROOT . '/views/admin_product/index.php');
             return true;
         }
+
+        /**
+         * Action для страницы "Управление товарами"
+         */
+        // public function actionFilt($idCat) {
+            
+        //     // Получаем список категорий товаров
+        //     $categories = Category::getCategoriesList();
+
+        //     // Получаем список товаров
+        //     $productsList = Product::getProductsList($idCat);
+
+        //     // Подключаем вид
+        //     require_once(ROOT . '/views/admin_product/index.php');
+        //     return true;
+        // }
 
         /**
          * Action для страницы "Добавить товар"
