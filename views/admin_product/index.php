@@ -13,18 +13,23 @@
                 </ol>
             </div>
             
-            <form action="#" method="post">
-                <?php echo "test"; ?>
+            <form action="#" method="post" id="cat">
                 <div class="seladm">
                     <label class="active">Категории товаров:</label>
-                    <select name="selcat" class="selcat" size='5' onchange='this.form.submit()>
+                    <select id="catselect" name="selcat" class="selcat" size='1'">
                         <?php foreach ($categories as $category): ?>
-                            <option value = "/admin/product/<?php echo $category['id_cat']; ?>"><?php echo $category['name_cat']; ?></option>
+                            <option value = "<?php echo $category['id_cat']; ?>"
+                                <?php if ($idCat == $category['id_cat']): ?>
+                                    selected
+                                <?php endif; ?> >
+                                <?php echo $category['name_cat']; ?>
+                            </option>
                         <?php endforeach; ?>
                     </select>
+                    <!-- <input type="submit" name="submit" class="btn btn-default" value="Отправить" /> -->
                 </div>
             </form>
-            <?php echo "test"; ?>
+            
             <a href="/admin/product/create" class="btn btn-default back"><i class="fa fa-plus"></i> Добавить товар</a>
             
             <h4>Список товаров</h4>

@@ -10,15 +10,30 @@
          * Action для страницы "Управление товарами"
          */
         public function actionIndex() {
-            // // Проверка доступа
-            // self::checkAdmin();
+            $idCat = '';
+            
+            if (isset($_POST['submit'])) {
+                $idCat = $_POST['selcat'];
+                echo 'test1';
+                // // Проверка доступа
+                // self::checkAdmin();
 
-            // Получаем список категорий товаров
-            $categories = Category::getCategoriesList();
+                // Получаем список категорий товаров
+                $categories = Category::getCategoriesList();
 
-            // Получаем список товаров
-            $productsList = Product::getProductsList(1);
+                // Получаем список товаров
+                $productsList = Product::getProductsList($idCat);
+            } else {
+                echo 'test2';
+                $idCat = 1;
+                // Получаем список категорий товаров
+                $categories = Category::getCategoriesList();
 
+                // Получаем список товаров
+                $productsList = Product::getProductsList($idCat);
+
+            }
+            
             // Подключаем вид
             require_once(ROOT . '/views/admin_product/index.php');
             return true;

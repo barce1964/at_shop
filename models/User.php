@@ -57,21 +57,23 @@
          * @return mixed : ingeger user id or false
          */
         public static function checkUserData($email, $password) {
-            
             include_once ROOT . '/db/connect.php';
-            $connect = new DB;
+            $user = array();
+            if ($email != '') {
+                $connect = new DB;
             
-            //$pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
+                //$pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
             
-            $query = "SELECT * FROM at_adm_users WHERE email_user = '$email'";
+                $query = "SELECT * FROM at_adm_users WHERE email_user = '$email'";
 
-            $user = $connect->getList($query, 6);
-            $cipher = $user['user_cif'];
-            $iv = $user['user_iv'];//openssl_random_pseudo_bytes($ivlen);
-            $key = $user['user_key'];
-            $pwd = openssl_encrypt($password, $cipher, $key, $options=0, $iv);
-            $query = "SELECT * FROM at_adm_users WHERE email_user = '$email' and pwd_user = '$pwd'";
-            $user = $connect->getList($query, 6);
+                $user = $connect->getList($query, 6);
+                $cipher = $user['user_cif'];
+                $iv = $user['user_iv'];//openssl_random_pseudo_bytes($ivlen);
+                $key = $user['user_key'];
+                $pwd = openssl_encrypt($password, $cipher, $key, $options=0, $iv);
+                $query = "SELECT * FROM at_adm_users WHERE email_user = '$email' and pwd_user = '$pwd'";
+                $user = $connect->getList($query, 6);
+            }
 
             if ($user) {
                 return $user['id_user'];

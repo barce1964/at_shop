@@ -22,7 +22,8 @@
 <script src="/template/js/price-range.js"></script>
 <script src="/template/js/jquery.prettyPhoto.js"></script>
 <script src="/template/js/main.js"></script>
-<script>
+
+<!-- <script>
     $(document).ready(function(){
         $(".add-to-cart").click(function () {
             var id = $(this).attr("data-id");
@@ -32,7 +33,20 @@
             return false;
         });
     });
-</script>
+</script> -->
+
+<!-- <script>
+    // function subm(f) {
+    //     //print('test');
+    //     //var form = document.getElementById("cat");
+    //     f.submit();
+    // }
+    // $("#catselect").change(function(event) {
+    //     var catID = $(this).attr("selcat");
+    //     console.log(catID);
+    //     $.post(catID);
+    // })
+</script> -->
 
 </body>
 </html>
