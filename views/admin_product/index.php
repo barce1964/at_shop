@@ -13,22 +13,23 @@
                 </ol>
             </div>
             
-            <form action="#" method="post" id="cat">
-                <div class="seladm">
-                    <label class="active">Категории товаров:</label>
-                    <select id="catselect" name="selcat" class="selcat" size='1'">
-                        <?php foreach ($categories as $category): ?>
-                            <option value = "<?php echo $category['id_cat']; ?>"
-                                <?php if ($idCat == $category['id_cat']): ?>
-                                    selected
-                                <?php endif; ?> >
-                                <?php echo $category['name_cat']; ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+            <!-- <form action="#" method="post" id="cat">
+                <div class="seladm"> -->
+                    <!-- <label class="active">Категории товаров:</label> -->
+                    <ul class="nav navbar-nav collapse navbar-collapse">
+                        <li class="dropdown"><a href="#"><?php echo $categories[0]['name_cat']; ?><i class="fa fa-angle-down"></i></a>
+                    <!-- <select id="catselect" name="selcat" class="selcat" size='1'> -->
+                        <ul role="menu" class="sub-menu">
+                            <?php foreach ($categories as $category): ?>
+                                <li><a href="/admin/product/<?php echo $category['id_cat']; ?>"><?php echo $category['name_cat']; ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </ul>
+                    <br/>
+                    <br/>
                     <!-- <input type="submit" name="submit" class="btn btn-default" value="Отправить" /> -->
-                </div>
-            </form>
+                <!-- </div>
+            </form> -->
             
             <a href="/admin/product/create" class="btn btn-default back"><i class="fa fa-plus"></i> Добавить товар</a>
             

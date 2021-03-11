@@ -12,8 +12,8 @@
         public function actionIndex() {
             $idCat = '';
             
-            if (isset($_POST['submit'])) {
-                $idCat = $_POST['selcat'];
+            if (isset($_REQUEST['selcat'])) {
+                $idCat = $_REQUEST['selcat'];
                 echo 'test1';
                 // // Проверка доступа
                 // self::checkAdmin();

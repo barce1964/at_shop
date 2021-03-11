@@ -36,16 +36,72 @@
 </script> -->
 
 <!-- <script>
-    // function subm(f) {
-    //     //print('test');
-    //     //var form = document.getElementById("cat");
-    //     f.submit();
+    // function subm() {
+    //     console.log('test');
+    //     function sendData(f) {
+    //         const XHR = new XMLHttpRequest();
+
+    //         // Bind the FormData object and the form element
+    //         const FD = new FormData( f );
+
+    //         // Define what happens on successful data submission
+    //         XHR.addEventListener( "load", function(event) {
+    //             alert( event.target.responseText );
+    //         } );
+
+    //         // Define what happens in case of error
+    //         XHR.addEventListener( "error", function( event ) {
+    //             alert( 'Oops! Something went wrong.' );
+    //         } );
+
+    //         // Set up our request
+    //         XHR.open( "POST", "#" );
+    //         console.log(FD);
+    //         // The data sent is what the user provided in the form
+    //         //XHR.send( FD );
+    //     }
+
+    //     // Access the form element...
+    //     const form = document.getElementById( "cat" );
+    //     //console.log(form.selcat.value);
+    //     // ...and take over its submit event.
+    //     // form.addEventListener( "submit", function ( event ) {
+    //     //     event.preventDefault();
+
+    //         sendData(form);
+    //     //} );
     // }
-    // $("#catselect").change(function(event) {
-    //     var catID = $(this).attr("selcat");
-    //     console.log(catID);
-    //     $.post(catID);
-    // })
+    let sel = document.getElementById('catselect');
+    sel.addEventListener('change', function(event) {
+        let selcat = sel.value;
+        
+        let formData = new FormData();
+        formData.set('selcat', selcat);
+
+        let promise = fetch('../../controllers/AdminProductController.php', {
+		    method: 'POST',
+		    body: formData,
+	    });
+        
+        const XHR = new XMLHttpRequest();
+        XHR.open( "POST", "../../controllers/AdminProductController.php" );
+        XHR.addEventListener( "error", function( event ) {
+            alert( 'Oops! Something went wrong.' );
+        });
+        
+        XHR.send(formData);
+        // promise.then(
+    	// 	response => {
+	    // 		return response.text();
+		//     }
+    	// ).then(
+	    // 	text => {
+	    // 		alert(selcat); // результат выведем алертом на экран
+		//     }
+	    // );
+        console.log(selcat);
+        event.preventDefault();
+    })
 </script> -->
 
 </body>
