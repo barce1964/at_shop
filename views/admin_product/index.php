@@ -17,11 +17,11 @@
                 <div class="seladm"> -->
                     <!-- <label class="active">Категории товаров:</label> -->
                     <ul class="nav navbar-nav collapse navbar-collapse">
-                        <li class="dropdown"><a href="#"><?php echo $categories[0]['name_cat']; ?><i class="fa fa-angle-down"></i></a>
+                        <li class="dropdown"><a href="#"><?php echo $categories[$iCount]['name_cat']; ?><i class="fa fa-angle-down"></i></a>
                     <!-- <select id="catselect" name="selcat" class="selcat" size='1'> -->
                         <ul role="menu" class="sub-menu">
                             <?php foreach ($categories as $category): ?>
-                                <li><a href="/admin/product/<?php echo $category['id_cat']; ?>"><?php echo $category['name_cat']; ?></a></li>
+                                <li><a href="/admin/product/idx<?php echo $category['id_cat']; ?>"><?php echo $category['name_cat']; ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                     </ul>

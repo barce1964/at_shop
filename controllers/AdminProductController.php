@@ -10,29 +10,13 @@
          * Action для страницы "Управление товарами"
          */
         public function actionIndex() {
-            $idCat = '';
-            
-            if (isset($_REQUEST['selcat'])) {
-                $idCat = $_REQUEST['selcat'];
-                echo 'test1';
-                // // Проверка доступа
-                // self::checkAdmin();
+            $idCat = 1;
+            // Получаем список категорий товаров
+            $categories = Category::getCategoriesList();
 
-                // Получаем список категорий товаров
-                $categories = Category::getCategoriesList();
-
-                // Получаем список товаров
-                $productsList = Product::getProductsList($idCat);
-            } else {
-                echo 'test2';
-                $idCat = 1;
-                // Получаем список категорий товаров
-                $categories = Category::getCategoriesList();
-
-                // Получаем список товаров
-                $productsList = Product::getProductsList($idCat);
-
-            }
+            // Получаем список товаров
+            $productsList = Product::getProductsList($idCat);
+            $iCount = 0;
             
             // Подключаем вид
             require_once(ROOT . '/views/admin_product/index.php');
@@ -42,18 +26,27 @@
         /**
          * Action для страницы "Управление товарами"
          */
-        // public function actionFilt($idCat) {
-            
-        //     // Получаем список категорий товаров
-        //     $categories = Category::getCategoriesList();
+        public function actionFilt($idCat) {
+          
+            // Получаем список категорий товаров
+            $categories = Category::getCategoriesList();
 
-        //     // Получаем список товаров
-        //     $productsList = Product::getProductsList($idCat);
+            // Получаем список товаров
+            $productsList = Product::getProductsList($idCat);
+            $iCount = 0;
 
-        //     // Подключаем вид
-        //     require_once(ROOT . '/views/admin_product/index.php');
-        //     return true;
-        // }
+            foreach($categories as $cat) {
+                if ($cat['id_cat'] != $idCat) {
+                    $iCount++;
+                } else {
+                    break;
+                }
+            }
+
+            // Подключаем вид
+            require_once(ROOT . '/views/admin_product/index.php');
+            return true;
+        }
 
         /**
          * Action для страницы "Добавить товар"
@@ -120,9 +113,9 @@
             self::checkAdmin();
 
             // Получаем список категорий для выпадающего списка
-            $categoriesList = Category::getCategoriesListAdmin();
+            $categoriesList = Category::getCategoriesList();
 
-            // Получаем данные о конкретном заказе
+            // Получаем данные о конкретном товаре
             $product = Product::getProductById($id);
 
             // Обработка формы
@@ -149,7 +142,7 @@
                     if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
 
                         // Если загружалось, переместим его в нужную папке, дадим новое имя
-                    move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
+                    move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/images/shop/{$id}.jpg");
                     }
                 }
 

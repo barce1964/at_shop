@@ -88,8 +88,7 @@
         * @return array <p>Массив с товарами</p>
         */
         public static function getProductsList($idCat = false) {
-            // Соединение с БД
-            //$db = Db::getConnection();
+            
             include_once ROOT . '/db/connect.php';
             $connect = new DB();
             if ($idCat) {
@@ -97,17 +96,7 @@
             } else {
                 $sql = 'SELECT * FROM at_shop_prod ORDER BY id_prod ASC';
             }
-            // Получение и возврат результатов
-            // $result = $db->query('SELECT id, name, price, code FROM product ORDER BY id ASC');
-            // $productsList = array();
-            // $i = 0;
-            // while ($row = $result->fetch()) {
-            //     $productsList[$i]['id'] = $row['id'];
-            //     $productsList[$i]['name'] = $row['name'];
-            //     $productsList[$i]['code'] = $row['code'];
-            //     $productsList[$i]['price'] = $row['price'];
-            //     $i++;
-            // }
+            
             return $connect->getList($sql, 4);
         }
 
@@ -118,15 +107,16 @@
         */
         public static function deleteProductById($id) {
             // Соединение с БД
-            $db = Db::getConnection();
+            include_once ROOT . '/db/connect.php';
+            $db = new Db();
 
             // Текст запроса к БД
-            $sql = 'DELETE FROM product WHERE id = :id';
+            $sql = "DELETE FROM at_shop_prod WHERE id_prod = $id";
 
             // Получение и возврат результатов. Используется подготовленный запрос
-            $result = $db->prepare($sql);
-            $result->bindParam(':id', $id, PDO::PARAM_INT);
-            return $result->execute();
+            // $result = $db->prepare($sql);
+            // $result->bindParam(':id', $id, PDO::PARAM_INT);
+            return $db->deleteRowFromTable($sql);
         }
 
         /**

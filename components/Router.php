@@ -23,6 +23,7 @@
             // Проверить наличие такого запроса в routes.php
 
             $i = 0;
+            $result = null;
             foreach ($this->routes as $uriPattern => $path) {
                 // Сравнение uriPattern и uri
                 if(preg_match("~$uriPattern~", $uri)) {
@@ -49,7 +50,11 @@
 
                     $controllerObject = new $controllerName;
                     //$result = $controllerObject->$actionName($parameters);
-                    $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
+                    
+                    //if($controllerName != 'AdminController' && $actionName != 'actionProduct') {
+                        $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
+                    //}
+                    
                     if ($result != null) {
                         break;
                     }   

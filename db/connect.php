@@ -184,6 +184,13 @@
                 or die("Ошибка " . mysqli_error($con));
         }
 
+        public function deleteRowFromTable($qry) {
+            $con = mysqli_connect($this->host, $this->user, $this->pwd, $this->db) 
+                or die("Ошибка " . mysqli_error($con));
+
+            return mysqli_query($con, $qry)
+                or die("Ошибка " . mysqli_error($con));
+        }
     }
 
 
