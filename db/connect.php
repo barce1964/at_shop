@@ -191,6 +191,19 @@
             return mysqli_query($con, $qry)
                 or die("Ошибка " . mysqli_error($con));
         }
+
+        public function lastInsertIdProd() {
+            $con = mysqli_connect($this->host, $this->user, $this->pwd, $this->db) 
+                or die("Ошибка " . mysqli_error($con));
+
+            $qry = 'SELECT MAX(id_prod) FROM at_shop_prod';
+            
+            $result = mysqli_query($con, $qry)
+                or die("Ошибка " . mysqli_error($con));
+
+            $row = mysqli_fetch_row($result);
+            return $row[0];
+        }
     }
 
 

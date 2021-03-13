@@ -22,7 +22,7 @@
         // Управление товарами:    
         'admin/product/create' => 'adminProduct/create',
         'admin/product/update/([0-9]+)' => 'adminProduct/update/$1',
-        'admin/product/delete/([0-9]+)' => 'adminProduct/delete/$1',
+        'admin/product/delete/([0-9]+)/([0-9]+)' => 'adminProduct/delete/$1/$2',
         'admin/product/idx([0-9]+)' => 'adminProduct/filt/$1',
         'admin/product' => 'adminProduct/index',
         // Управление категориями:    

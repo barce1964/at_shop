@@ -53,7 +53,7 @@
                         <td><?php echo $product['name_prod']; ?></td>
                         <td><?php echo $product['price_prod']; ?></td>  
                         <td><a href="/admin/product/update/<?php echo $product['id_prod']; ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
-                        <td><a href="/admin/product/delete/<?php echo $product['id_prod']; ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
+                        <td><a href="/admin/product/delete/<?php echo $product['id_prod']; ?>/<?php echo $categories[$iCount]['id_cat']; ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

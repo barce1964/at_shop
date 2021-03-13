@@ -56,7 +56,7 @@
             self::checkAdmin();
 
             // Получаем список категорий для выпадающего списка
-            $categoriesList = Category::getCategoriesListAdmin();
+            $categoriesList = Category::getCategoriesList()
 
             // Обработка формы
             if (isset($_POST['submit'])) {
@@ -72,7 +72,7 @@
                 $options['is_new'] = $_POST['is_new'];
                 $options['is_recommended'] = $_POST['is_recommended'];
                 $options['status'] = $_POST['status'];
-
+                $catId = $options['category_id'];
                 // Флаг ошибок в форме
                 $errors = false;
 
@@ -91,12 +91,12 @@
                         // Проверим, загружалось ли через форму изображение
                         if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
                             // Если загружалось, переместим его в нужную папке, дадим новое имя
-                            move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
+                            move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/images/shop/{$id}.jpg");
                         }
                     };
 
                     // Перенаправляем пользователя на страницу управлениями товарами
-                    header("Location: /admin/product");
+                    header("Location: /admin/product/idx$catId");
                 }
             }
 
@@ -133,6 +133,7 @@
                 $options['is_recommended'] = $_POST['is_recommended'];
                 $options['status'] = $_POST['status'];
 
+                $catId = $options['category_id'];
                 // Сохраняем изменения
                 if (Product::updateProductById($id, $options)) {
 
@@ -147,7 +148,7 @@
                 }
 
                 // Перенаправляем пользователя на страницу управлениями товарами
-                header("Location: /admin/product");
+                header("Location: /admin/product/idx$catId");
             }
 
             // Подключаем вид
@@ -158,7 +159,7 @@
         /**
          * Action для страницы "Удалить товар"
          */
-        public function actionDelete($id) {
+        public function actionDelete($id, $catId) {
             // Проверка доступа
             self::checkAdmin();
 
@@ -169,7 +170,7 @@
                 Product::deleteProductById($id);
 
                 // Перенаправляем пользователя на страницу управлениями товарами
-                header("Location: /admin/product");
+                header("Location: /admin/product/idx$catId");
             }
 
             // Подключаем вид
