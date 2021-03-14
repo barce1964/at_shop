@@ -261,7 +261,7 @@ create table AT_SHOP_PROD
    PRICE_PROD           float not null,
    AVAILABILITY         int not null default 1,
    BRAND_PROD           varchar(255) not null,
-   IMAGE_PROD           varchar(255) not null,
+   IMAGE_PROD           varchar(255),
    DESCR_PROD           text not null,
    IS_NEW               int not null default 0,
    IS_REC               int not null default 0,

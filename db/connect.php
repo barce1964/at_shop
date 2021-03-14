@@ -43,6 +43,8 @@
                     while ($row = mysqli_fetch_row($result)) {
                         $returnList[$i]['id_cat'] = $row[0];
                         $returnList[$i]['name_cat'] = $row[1];
+                        $returnList[$i]['sort_order'] = $row[2];
+                        $returnList[$i]['status_cat'] = $row[3];
                         $i++;
                     }
                     break;
@@ -157,6 +159,11 @@
                             $returnList[$i]['id_role'] = $row[1];
                             $i++;
                         }
+                        break;
+
+                    case 13:
+                        $row = mysqli_fetch_row($result);
+                        $returnList = $row[0];
                         break;
 
                 default:

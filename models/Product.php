@@ -109,7 +109,11 @@
             // Соединение с БД
             include_once ROOT . '/db/connect.php';
             $db = new Db();
-
+            // Удаление файла изображения
+            $sql = "SELECT image_prod FROM at_shop_prod WHERE id_prod = $id";
+            $imagePath = $db->getList($sql, 13);
+            $imagePath = $_SERVER['DOCUMENT_ROOT'] . $imagePath;
+            unlink($imagePath);
             // Текст запроса к БД
             $sql = "DELETE FROM at_shop_prod WHERE id_prod = $id";
 
@@ -127,6 +131,7 @@
         */
         public static function updateProductById($id, $options) {
             // Соединение с БД
+            include_once ROOT . '/db/connect.php';
             $db = new Db();
 
             // Текст запроса к БД
@@ -147,6 +152,7 @@
         */
         public static function createProduct($options) {
             // Соединение с БД
+            include_once ROOT . '/db/connect.php';
             $db = new Db();
 
             // Текст запроса к БД
@@ -154,22 +160,10 @@
                 . '(id_cat, name_prod, code_prod, price_prod, brand_prod, availability,'
                 . 'descr_prod, is_new, is_rec, status_prod)'
                 . 'VALUES '
-                . "($options[category_id],$options[name], $options[code], $options[price],"
-                . "$options[brand], $options[availability], $options[description],"
-                . "$options['is_new'], $options['is_recommended'], $options['status'])";
+                . "($options[category_id],'$options[name]', $options[code], $options[price],"
+                . "'$options[brand]', $options[availability], '$options[description]',"
+                . "$options[is_new], $options[is_recommended], $options[status])";
 
-            // Получение и возврат результатов. Используется подготовленный запрос
-            // $result = $db->prepare($sql);
-            // $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
-            // $result->bindParam(':code', $options['code'], PDO::PARAM_STR);
-            // $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
-            // $result->bindParam(':category_id', $options['category_id'], PDO::PARAM_INT);
-            // $result->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
-            // $result->bindParam(':availability', $options['availability'], PDO::PARAM_INT);
-            // $result->bindParam(':description', $options['description'], PDO::PARAM_STR);
-            // $result->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
-            // $result->bindParam(':is_recommended', $options['is_recommended'], PDO::PARAM_INT);
-            // $result->bindParam(':status', $options['status'], PDO::PARAM_INT);
             if ($db->insertRowToDB($sql)) {
                 // Если запрос выполенен успешно, возвращаем id добавленной записи
                 return $db->lastInsertIdProd();
@@ -205,7 +199,7 @@
             $noImage = 'no-image.jpg';
 
             // Путь к папке с товарами
-            $path = '/upload/images/products/';
+            $path = '/images/shop/';
 
             // Путь к изображению товара
             $pathToProductImage = $path . $id . '.jpg';

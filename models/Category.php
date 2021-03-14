@@ -4,7 +4,7 @@
             include_once ROOT . '/db/connect.php';
 
             $connect = new DB;
-            $query = 'select id_cat, name_cat from at_shop_cat where status_cat=1 ORDER BY id_cat';
+            $query = 'select * from at_shop_cat ORDER BY id_cat';
 
             return $connect->getList($query, 2);
         }
@@ -16,15 +16,14 @@
          */
         public static function deleteCategoryById($id) {
             // Соединение с БД
-            $db = Db::getConnection();
+            include_once ROOT . '/db/connect.php';
+            $db = new Db();
 
             // Текст запроса к БД
-            $sql = 'DELETE FROM category WHERE id = :id';
+            $sql = "DELETE FROM at_shop_cat WHERE id_cat = $id";
 
             // Получение и возврат результатов. Используется подготовленный запрос
-            $result = $db->prepare($sql);
-            $result->bindParam(':id', $id, PDO::PARAM_INT);
-            return $result->execute();
+            return $db->deleteRowFromTable($sql);
         }
 
         /**
@@ -37,23 +36,19 @@
          */
         public static function updateCategoryById($id, $name, $sortOrder, $status) {
             // Соединение с БД
-            $db = Db::getConnection();
+            include_once ROOT . '/db/connect.php';
+            $db = new Db();
 
             // Текст запроса к БД
-            $sql = "UPDATE category
+            $sql = "UPDATE at_shop_cat
                 SET 
-                    name = :name, 
-                    sort_order = :sort_order, 
-                    status = :status
-                WHERE id = :id";
+                    name_cat = '$name', 
+                    sort_order = $sortOrder, 
+                    status_cat = $status
+                WHERE id_cat = $id";
 
             // Получение и возврат результатов. Используется подготовленный запрос
-            $result = $db->prepare($sql);
-            $result->bindParam(':id', $id, PDO::PARAM_INT);
-            $result->bindParam(':name', $name, PDO::PARAM_STR);
-            $result->bindParam(':sort_order', $sortOrder, PDO::PARAM_INT);
-            $result->bindParam(':status', $status, PDO::PARAM_INT);
-            return $result->execute();
+            return $db->updateRowInTable($sql);
         }
 
         /**
@@ -63,23 +58,24 @@
          */
         public static function getCategoryById($id) {
             // Соединение с БД
-            $db = Db::getConnection();
+            include_once ROOT . '/db/connect.php';
+            $db = new Db();
 
             // Текст запроса к БД
-            $sql = 'SELECT * FROM category WHERE id = :id';
+            $sql = "SELECT * FROM at_shop_cat WHERE id_cat = $id";
 
             // Используется подготовленный запрос
-            $result = $db->prepare($sql);
-            $result->bindParam(':id', $id, PDO::PARAM_INT);
+            // $result = $db->prepare($sql);
+            // $result->bindParam(':id', $id, PDO::PARAM_INT);
 
             // Указываем, что хотим получить данные в виде массива
-            $result->setFetchMode(PDO::FETCH_ASSOC);
+            // $result->setFetchMode(PDO::FETCH_ASSOC);
 
             // Выполняем запрос
-            $result->execute();
+            //$result->execute();
 
             // Возвращаем данные
-            return $result->fetch();
+            return $db->getList($sql, 2);
         }
 
         /**
@@ -108,18 +104,22 @@
          */
         public static function createCategory($name, $sortOrder, $status) {
             // Соединение с БД
-            $db = Db::getConnection();
+            include_once ROOT . '/db/connect.php';
+            $db = new Db();
 
             // Текст запроса к БД
-            $sql = 'INSERT INTO category (name, sort_order, status) '
-                    . 'VALUES (:name, :sort_order, :status)';
+            $sql = "INSERT INTO at_shop_cat (name_cat, sort_order, status_cat) "
+                    . "VALUES ('$name', $sortOrder, $status)";
 
-            // Получение и возврат результатов. Используется подготовленный запрос
-            $result = $db->prepare($sql);
-            $result->bindParam(':name', $name, PDO::PARAM_STR);
-            $result->bindParam(':sort_order', $sortOrder, PDO::PARAM_INT);
-            $result->bindParam(':status', $status, PDO::PARAM_INT);
-            return $result->execute();
+            return $db->insertRowToDB($sql);
+        }
+
+        public static function getProductCountInCategory($Id) {
+            include_once ROOT . '/db/connect.php';
+            $db = new Db();
+
+            $sql = "SELECT COUNT(*) FROM at_shop_prod WHERE id_cat = $Id";
+            return $db->getList($sql, 13);
         }
     }
 ?>

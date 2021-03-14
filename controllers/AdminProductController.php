@@ -56,7 +56,7 @@
             self::checkAdmin();
 
             // Получаем список категорий для выпадающего списка
-            $categoriesList = Category::getCategoriesList()
+            $categoriesList = Category::getCategoriesList();
 
             // Обработка формы
             if (isset($_POST['submit'])) {
@@ -92,6 +92,11 @@
                         if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
                             // Если загружалось, переместим его в нужную папке, дадим новое имя
                             move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/images/shop/{$id}.jpg");
+                            include_once ROOT . '/db/connect.php';
+                            $db = new DB();
+                            $imagePath = "/images/shop/{$id}.jpg";
+                            $sql = "UPDATE at_shop_prod SET image_prod = '$imagePath' WHERE id_prod = $id";
+                            $db->updateRowInTable($sql);
                         }
                     };
 
@@ -143,7 +148,7 @@
                     if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
 
                         // Если загружалось, переместим его в нужную папке, дадим новое имя
-                    move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/images/shop/{$id}.jpg");
+                        move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/images/shop/{$id}.jpg");
                     }
                 }
 
