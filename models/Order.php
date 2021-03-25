@@ -30,11 +30,11 @@
             $productList = Product::getProdustsByIds($prodKeys);
             $total = Cart::getTotalPrice($productList);
             $nameOrd = $userId . '-' . $userName . '-' . self::genNumOrd();
-            
+            $nameOrd = mb_strtoupper($nameOrd);
             $connect = new DB();
 
-            $sql = "INSERT INTO at_shop_orders (id_user, name_ord, total_ord, ord_is_finish)
-                VALUES ($userId, '$nameOrd', $total, 1)";
+            $sql = "INSERT INTO at_shop_orders (id_user, name_ord, total_ord)
+                VALUES ($userId, '$nameOrd', $total)";
             $err1 = $connect->insertRowToDB($sql);
             
             $sql = "SELECT id_ord FROM at_shop_orders WHERE id_user = $userId AND ord_is_detail = 0";
@@ -71,6 +71,131 @@
 
             $sql = "SELECT prod_name, prod_price, prod_quantity, prod_sum FROM at_shop_order_detail WHERE id_ord = $idOrd";
             return $connect->getList($sql, 10);
+        }
+
+        /**
+         * Возвращает список заказов
+        * @return array <p>Список заказов</p>
+        */
+        public static function getOrdersList() {
+            // Соединение с БД
+            include_once ROOT . '/db/connect.php';
+            $db = new Db();
+
+            // Получение и возврат результатов
+            $sql = "SELECT a.id_ord, a.name_ord, b.name_user, b.phone_user, a.date_ord, a.ord_is_finish
+                FROM at_shop_orders a, at_adm_users b
+                WHERE a.id_user = b.id_user ORDER BY a.date_ord DESC";
+            
+            return $db->getList($sql, 14);
+            //print_r($db->getList($sql, 14));
+        }
+
+        /**
+         * Возвращает текстое пояснение статуса для заказа :<br/>
+         * <i>1 - Новый заказ, 2 - В обработке, 3 - Доставляется, 4 - Закрыт</i>
+         * @param integer $status <p>Статус</p>
+         * @return string <p>Текстовое пояснение</p>
+         */
+        public static function getStatusText($status) {
+            switch ($status) {
+                case '1':
+                    return 'Новый заказ';
+                    break;
+                case '2':
+                    return 'В обработке';
+                    break;
+                case '3':
+                    return 'Доставляется';
+                    break;
+                case '4':
+                    return 'Закрыт';
+                    break;
+            }
+        }
+
+        /**
+         * Возвращает заказ с указанным id 
+         * @param integer $id <p>id</p>
+         * @return array <p>Массив с информацией о заказе</p>
+         */
+        public static function getOrderById($id) {
+            // Соединение с БД
+            $db = Db::getConnection();
+
+            // Текст запроса к БД
+            $sql = 'SELECT * FROM product_order WHERE id = :id';
+
+            $result = $db->prepare($sql);
+            $result->bindParam(':id', $id, PDO::PARAM_INT);
+
+            // Указываем, что хотим получить данные в виде массива
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+
+            // Выполняем запрос
+            $result->execute();
+
+            // Возвращаем данные
+            return $result->fetch();
+        }
+
+        /**
+         * Удаляет заказ с заданным id
+         * @param integer $id <p>id заказа</p>
+         * @return boolean <p>Результат выполнения метода</p>
+         */
+        public static function deleteOrderById($id) {
+            // Соединение с БД
+            include_once ROOT . '/db/connect.php';
+            $db = new Db();
+
+            // Получение и возврат результатов. Используется подготовленный запрос
+            $sql = "DELETE FROM at_shop_order_detail WHERE id_ord = $id";
+            $result1 = $db->deleteRowFromTable($sql);
+
+            $sql = "DELETE FROM at_shop_orders WHERE id_ord = $id";
+            $result2 = $db->deleteRowFromTable($sql);
+
+            if ($result1 || $result2) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        /**
+         * Редактирует заказ с заданным id
+         * @param integer $id <p>id товара</p>
+         * @param string $userName <p>Имя клиента</p>
+         * @param string $userPhone <p>Телефон клиента</p>
+         * @param string $userComment <p>Комментарий клиента</p>
+         * @param string $date <p>Дата оформления</p>
+         * @param integer $status <p>Статус <i>(включено "1", выключено "0")</i></p>
+         * @return boolean <p>Результат выполнения метода</p>
+         */
+        public static function updateOrderById($id, $userName, $userPhone, $userComment, $date, $status) {
+            // Соединение с БД
+            $db = Db::getConnection();
+
+            // Текст запроса к БД
+            $sql = "UPDATE product_order
+                SET 
+                    user_name = :user_name, 
+                    user_phone = :user_phone, 
+                    user_comment = :user_comment, 
+                    date = :date, 
+                    status = :status 
+                WHERE id = :id";
+
+            // Получение и возврат результатов. Используется подготовленный запрос
+            $result = $db->prepare($sql);
+            $result->bindParam(':id', $id, PDO::PARAM_INT);
+            $result->bindParam(':user_name', $userName, PDO::PARAM_STR);
+            $result->bindParam(':user_phone', $userPhone, PDO::PARAM_STR);
+            $result->bindParam(':user_comment', $userComment, PDO::PARAM_STR);
+            $result->bindParam(':date', $date, PDO::PARAM_STR);
+            $result->bindParam(':status', $status, PDO::PARAM_INT);
+            return $result->execute();
         }
 
     }

@@ -166,6 +166,18 @@
                         $returnList = $row[0];
                         break;
 
+                    case 14:
+                        $returnList = array();
+                        while ($row = mysqli_fetch_row($result)) {
+                            $returnList[$i]['id_ord'] = $row[0];
+                            $returnList[$i]['name_ord'] = $row[1];
+                            $returnList[$i]['name_user'] = $row[2];
+                            $returnList[$i]['phone_user'] = $row[3];
+                            $returnList[$i]['date_ord'] = $row[4];
+                            $returnList[$i]['ord_is_finish'] = $row[5];
+                            $i++;
+                        }
+
                 default:
                     # code...
                     break;
