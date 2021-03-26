@@ -60,17 +60,11 @@
             // Проверка доступа
             //self::checkAdmin();
 
-            // Получаем данные о конкретном заказе
+            // // Получаем данные о конкретном заказе
             $order = Order::getOrderById($id);
 
-            // Получаем массив с идентификаторами и количеством товаров
-            $productsQuantity = json_decode($order['products'], true);
-
-            // Получаем массив с индентификаторами товаров
-            $productsIds = array_keys($productsQuantity);
-
             // Получаем список товаров в заказе
-            $products = Product::getProdustsByIds($productsIds);
+            $products = Order::getOrdDetail($id);
 
             // Подключаем вид
             require_once(ROOT . '/views/admin_order/view.php');

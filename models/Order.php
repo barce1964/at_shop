@@ -61,7 +61,7 @@
             include_once ROOT . '/db/connect.php';
             $connect = new DB();
 
-            $sql = "SELECT name_ord, date_ord, total_ord FROM at_shop_orders WHERE id_ord = $idOrd";
+            $sql = "SELECT name_ord, date_ord, total_ord, , ord_is_finish FROM at_shop_orders WHERE id_ord = $idOrd";
             return $connect->getList($sql, 9);
         }
 
@@ -89,7 +89,6 @@
                 WHERE a.id_user = b.id_user ORDER BY a.date_ord DESC";
             
             return $db->getList($sql, 14);
-            //print_r($db->getList($sql, 14));
         }
 
         /**
@@ -122,22 +121,15 @@
          */
         public static function getOrderById($id) {
             // Соединение с БД
-            $db = Db::getConnection();
+            include_once ROOT . '/db/connect.php';
+            $db = new DB();
 
             // Текст запроса к БД
-            $sql = 'SELECT * FROM product_order WHERE id = :id';
-
-            $result = $db->prepare($sql);
-            $result->bindParam(':id', $id, PDO::PARAM_INT);
-
-            // Указываем, что хотим получить данные в виде массива
-            $result->setFetchMode(PDO::FETCH_ASSOC);
-
-            // Выполняем запрос
-            $result->execute();
+            $sql = "SELECT a.name_ord, a.date_ord, a.total_ord, a.ord_is_finish, b.name_user, b.phone_user
+                FROM at_shop_orders a, at_adm_users b WHERE id_ord = $id AND a.id_user = b.id_user";
 
             // Возвращаем данные
-            return $result->fetch();
+            return $db->getList($sql, 15);
         }
 
         /**

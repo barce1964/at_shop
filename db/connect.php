@@ -127,6 +127,7 @@
                         $returnList['name_ord'] = $row[0];
                         $returnList['date_ord'] = $row[1];
                         $returnList['total_ord'] = $row[2];
+                        $returnList['ord_is_finish'] = $row[3];
                         break;
         
                     case 10:
@@ -178,6 +179,18 @@
                             $returnList[$i]['ord_is_finish'] = $row[5];
                             $i++;
                         }
+                        break;
+                    
+                    case 15:
+                        $returnList = array();
+                        $row = mysqli_fetch_row($result);
+                        $returnList['name_ord'] = $row[0];
+                        $returnList['date_ord'] = $row[1];
+                        $returnList['total_ord'] = $row[2];
+                        $returnList['ord_is_finish'] = $row[3];
+                        $returnList['name_user'] = $row[4];
+                        $returnList['phone_user'] = $row[5];
+                        break;    
 
                 default:
                     # code...
