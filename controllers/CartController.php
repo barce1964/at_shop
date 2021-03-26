@@ -51,6 +51,7 @@
             $result = "";
             foreach ($ordDetail as $product) {
                 $result = $result . "<tr>";
+                $result = $result . "<td>" . $product['prod_code'] . "</td>";
                 $result = $result . "<td>" . $product['prod_name'] . "</td>";
                 $result = $result . "<td align='right'>" . $product['prod_price'] . "</td>";
                 $result = $result . "<td align='right'>" . $product['prod_quantity'] . "</td>";
@@ -137,6 +138,7 @@
                                     <br><br>
                                     <table>
                                         <tr>
+                                            <th>Артикул</th>
                                             <th>Название</th>
                                             <th>Стомость, тг</th>
                                             <th>Количество, шт</th>

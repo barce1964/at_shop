@@ -132,10 +132,11 @@
                     case 10:
                         $returnList = array();
                         while ($row = mysqli_fetch_row($result)) {
-                            $returnList[$i]['prod_name'] = $row[0];
-                            $returnList[$i]['prod_price'] = $row[1];
-                            $returnList[$i]['prod_quantity'] = $row[2];
-                            $returnList[$i]['prod_sum'] = $row[3];
+                            $returnList[$i]['prod_code'] = $row[0];
+                            $returnList[$i]['prod_name'] = $row[1];
+                            $returnList[$i]['prod_price'] = $row[2];
+                            $returnList[$i]['prod_quantity'] = $row[3];
+                            $returnList[$i]['prod_sum'] = $row[4];
                             $i++;
                         }
                         break;

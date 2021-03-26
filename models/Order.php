@@ -40,9 +40,9 @@
             $sql = "SELECT id_ord FROM at_shop_orders WHERE id_user = $userId AND ord_is_detail = 0";
             $ordId = $connect->getList($sql, 5);
             
-            $sql = "INSERT INTO at_shop_order_detail (id_ord, prod_name, prod_price, prod_quantity, prod_sum) VALUES ";
+            $sql = "INSERT INTO at_shop_order_detail (id_ord, id_prod, prod_quantity, prod_sum) VALUES ";
             foreach ($productList as $item) {
-                $sql = $sql . "($ordId, '" . $item['name_prod'] . "', " . $item['price_prod'] . ", " . $products[$item['id_prod']] . ", " . $item['price_prod'] * $products[$item['id_prod']] . "), ";
+                $sql = $sql . "($ordId, " . $item['id_prod'] . ", " . $products[$item['id_prod']] . ", " . $item['price_prod'] * $products[$item['id_prod']] . "), ";
             }
             $sql = trim($sql, ", ");
             $err2 = $connect->insertRowToDB($sql);
@@ -69,7 +69,8 @@
             include_once ROOT . '/db/connect.php';
             $connect = new DB();
 
-            $sql = "SELECT prod_name, prod_price, prod_quantity, prod_sum FROM at_shop_order_detail WHERE id_ord = $idOrd";
+            $sql = "SELECT b.code_prod, b.name_prod, b.price_prod, a.prod_quantity, a.prod_sum
+                FROM at_shop_order_detail a, at_shop_prod b WHERE a.id_ord = $idOrd AND a.id_prod = b.id_prod";
             return $connect->getList($sql, 10);
         }
 

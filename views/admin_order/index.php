@@ -24,9 +24,9 @@
                     <th>Телефон покупателя</th>
                     <th>Дата оформления</th>
                     <th>Обработан</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>Посмотреть</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
                 </tr>
                 <?php foreach ($ordersList as $order): ?>
                     <tr>
