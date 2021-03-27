@@ -61,7 +61,7 @@
             include_once ROOT . '/db/connect.php';
             $connect = new DB();
 
-            $sql = "SELECT name_ord, date_ord, total_ord, , ord_is_finish FROM at_shop_orders WHERE id_ord = $idOrd";
+            $sql = "SELECT name_ord, date_ord, total_ord, ord_is_finish FROM at_shop_orders WHERE id_ord = $idOrd";
             return $connect->getList($sql, 9);
         }
 
@@ -166,29 +166,16 @@
          * @param integer $status <p>Статус <i>(включено "1", выключено "0")</i></p>
          * @return boolean <p>Результат выполнения метода</p>
          */
-        public static function updateOrderById($id, $userName, $userPhone, $userComment, $date, $status) {
+        public static function updateOrderById($id, $status) {
             // Соединение с БД
-            $db = Db::getConnection();
+            include_once ROOT . '/db/connect.php';
+            $db = new Db();
 
             // Текст запроса к БД
-            $sql = "UPDATE product_order
-                SET 
-                    user_name = :user_name, 
-                    user_phone = :user_phone, 
-                    user_comment = :user_comment, 
-                    date = :date, 
-                    status = :status 
-                WHERE id = :id";
+            $sql = "UPDATE at_shop_orders SET ord_is_finish = $status WHERE id_ord = $id";
 
             // Получение и возврат результатов. Используется подготовленный запрос
-            $result = $db->prepare($sql);
-            $result->bindParam(':id', $id, PDO::PARAM_INT);
-            $result->bindParam(':user_name', $userName, PDO::PARAM_STR);
-            $result->bindParam(':user_phone', $userPhone, PDO::PARAM_STR);
-            $result->bindParam(':user_comment', $userComment, PDO::PARAM_STR);
-            $result->bindParam(':date', $date, PDO::PARAM_STR);
-            $result->bindParam(':status', $status, PDO::PARAM_INT);
-            return $result->execute();
+            return $db->updateRowInTable($sql);
         }
 
     }

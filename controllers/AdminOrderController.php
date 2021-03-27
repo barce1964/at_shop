@@ -1,7 +1,7 @@
 <?php
 
     /**
-    ?> * Контроллер AdminOrderController
+     * Контроллер AdminOrderController
      * Управление заказами в админпанели
      */
     class AdminOrderController extends AdminBase {
@@ -35,14 +35,14 @@
             if (isset($_POST['submit'])) {
                 // Если форма отправлена   
                 // Получаем данные из формы
-                $userName = $_POST['userName'];
-                $userPhone = $_POST['userPhone'];
-                $userComment = $_POST['userComment'];
-                $date = $_POST['date'];
+                // $userName = $_POST['userName'];
+                // $userPhone = $_POST['userPhone'];
+                // $userComment = $_POST['userComment'];
+                // $date = $_POST['date'];
                 $status = $_POST['status'];
 
                 // Сохраняем изменения
-                Order::updateOrderById($id, $userName, $userPhone, $userComment, $date, $status);
+                Order::updateOrderById($id, $status);
 
                 // Перенаправляем пользователя на страницу управлениями заказами
                 header("Location: /admin/order/view/$id");
