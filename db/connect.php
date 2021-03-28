@@ -192,7 +192,26 @@
                         $returnList['phone_user'] = $row[5];
                         break;    
 
-                default:
+                    case 16:
+                        $returnList = array();
+                        while ($row = mysqli_fetch_row($result)) {
+                            $returnList[$i]['id_user'] = $row[0];
+                            $returnList[$i]['name_user'] = $row[1];
+                            $returnList[$i]['email_user'] = $row[2];
+                            $returnList[$i]['phone_user'] = $row[3];
+                            $i++;
+                        }
+                        break;
+
+                    case 17:
+                        $returnList = array();
+                        while ($row = mysqli_fetch_row($result)) {
+                            $returnList[$i]['id_ord'] = $row[0];
+                            $i++;
+                        }
+                        break;
+
+                        default:
                     # code...
                     break;
             }

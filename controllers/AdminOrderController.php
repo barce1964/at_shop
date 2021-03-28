@@ -35,10 +35,7 @@
             if (isset($_POST['submit'])) {
                 // Если форма отправлена   
                 // Получаем данные из формы
-                // $userName = $_POST['userName'];
-                // $userPhone = $_POST['userPhone'];
-                // $userComment = $_POST['userComment'];
-                // $date = $_POST['date'];
+                
                 $status = $_POST['status'];
 
                 // Сохраняем изменения

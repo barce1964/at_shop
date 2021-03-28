@@ -119,7 +119,7 @@
         }
         
         /**
-         * Проверяет имя: не меньше, чем 6 символов
+         * Проверяет имя: не меньше, чем 8 символов
          */
         public static function checkPassword($password) {
             if (strlen($password) >= 8) {
@@ -184,6 +184,35 @@
                 
                 return $connect->getList($sql, 12);
             }
+        }
+
+        public static function getUsersList() {
+            include_once ROOT . '/db/connect.php';
+            $db = new DB();
+            $sql = "SELECT id_user, name_user, email_user, phone_user FROM at_adm_users";
+            return $db->getList($sql, 16);
+        }
+
+        public static function deleteUserById($id) {
+            include_once ROOT . '/db/connect.php';
+            $db = new DB();
+
+            $sql = "DELETE FROM at_adm_con_users_roles WHERE id_user = $id";
+            $res = $db->deleteRowFromTable($sql);
+
+            $sql = "SELECT id_ord FROM at_shop_orders WHERE id_user = $id";
+            $orders = $db->getList($sql, 17);
+            foreach ($orders as $ord) {
+                $sql = "DELETE FROM at_shop_order_detail WHERE id_ord = " . $ord['id_ord'];
+                $res = $db->deleteRowFromTable($sql);
+            }
+            $sql = "DELETE FROM at_shop_orders WHERE id_user = $id";
+            $res = $db->deleteRowFromTable($sql);
+
+            $sql = "DELETE FROM at_adm_users  WHERE id_user = $id";
+            $res = $db->deleteRowFromTable($sql);
+
+            return true;
         }
     }
 ?>
