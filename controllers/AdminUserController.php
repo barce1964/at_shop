@@ -28,13 +28,15 @@
             // Проверка доступа
             self::checkAdmin();
 
+            $roles = User::getRolesList();
             // Обработка формы
             if (isset($_POST['submit'])) {
                 // Если форма отправлена
                 // Получаем данные из формы
                 $name = $_POST['name'];
-                $sortOrder = $_POST['sort_order'];
-                $status = $_POST['status'];
+                $email = $_POST['email'];
+                $phone = $_POST['phone'];
+                $pwd = $_POST['pwd'];
 
                 // Флаг ошибок в форме
                 $errors = false;
@@ -48,14 +50,14 @@
                 if ($errors == false) {
                     // Если ошибок нет
                     // Добавляем новую категорию
-                    Category::createCategory($name, $sortOrder, $status);
+                    User::createUser($name, $sortOrder, $status);
 
                     // Перенаправляем пользователя на страницу управлениями категориями
-                    header("Location: /admin/category");
+                    header("Location: /admin/user");
                 }
             }
 
-            require_once(ROOT . '/views/admin_category/create.php');
+            require_once(ROOT . '/views/admin_user/create.php');
             return true;
         }
 

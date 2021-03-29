@@ -9,7 +9,7 @@
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
                     <li><a href="/admin">Админпанель</a></li>
-                    <li><a href="/admin/category">Управление пользователями</a></li>
+                    <li><a href="/admin/user">Управление пользователями</a></li>
                     <li class="active">Удалить пользователя</li>
                 </ol>
             </div>

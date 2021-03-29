@@ -32,8 +32,8 @@
                         <td><?php echo $user['name_user']; ?></td>
                         <td><?php echo $user['email_user']; ?></td>
                         <td><?php echo $user['phone_user']; ?></td>
-                        <td><a href="/admin/user/update/<?php echo $user['id_user']; ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
-                        <td><a href="/admin/user/delete/<?php echo $user['id_user']; ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
+                        <td><a href="/admin/user/update/idx<?php echo $user['id_user']; ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
+                        <td><a href="/admin/user/delete/idx<?php echo $user['id_user']; ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

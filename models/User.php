@@ -193,6 +193,13 @@
             return $db->getList($sql, 16);
         }
 
+        public static function getRolesList(){
+            include_once ROOT . '/db/connect.php';
+            $db = new DB();
+            $sql = "SELECT * FROM at_adm_roles";
+            return $db->getList($sql, 18);
+        }
+
         public static function deleteUserById($id) {
             include_once ROOT . '/db/connect.php';
             $db = new DB();

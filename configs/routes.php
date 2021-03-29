@@ -37,8 +37,8 @@
         'admin/order' => 'adminOrder/index',
         // Управление пользователями:    
         'admin/user/create' => 'adminUser/create',
-        'admin/user/update/([0-9]+)' => 'adminUser/update/$1',
-        'admin/user/delete/([0-9]+)' => 'adminUser/delete/$1',
+        'admin/user/update/idx([0-9]+)' => 'adminUser/update/$1',
+        'admin/user/delete/idx([0-9]+)' => 'adminUser/delete/$1',
         'admin/user' => 'adminUser/index',
         // Админпанель:
         'admin' => 'admin/index',

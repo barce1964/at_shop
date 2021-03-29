@@ -14,14 +14,14 @@
 
 
 
-<script src="/template/js/jquery.js"></script>
-<script src="/template/js/jquery.cycle2.min.js"></script>
-<script src="/template/js/jquery.cycle2.carousel.min.js"></script>
-<script src="/template/js/bootstrap.min.js"></script>
-<script src="/template/js/jquery.scrollUp.min.js"></script>
-<script src="/template/js/price-range.js"></script>
-<script src="/template/js/jquery.prettyPhoto.js"></script>
-<script src="/template/js/main.js"></script>
+<script src="../../js/jquery.js"></script>
+<script src="../../js/jquery.cycle2.min.js"></script>
+<script src="../../js/jquery.cycle2.carousel.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/jquery.scrollUp.min.js"></script>
+<script src="../../js/price-range.js"></script>
+<script src="../../js/jquery.prettyPhoto.js"></script>
+<script src="../../js/main.js"></script>
 
 </body>
 </html>
