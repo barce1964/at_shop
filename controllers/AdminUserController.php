@@ -27,12 +27,14 @@
         public function actionCreate() {
             // Проверка доступа
             self::checkAdmin();
-
+            
+            $roles_html = array();
             $roles = User::getRolesList();
             // Обработка формы
             if (isset($_POST['submit'])) {
                 // Если форма отправлена
                 // Получаем данные из формы
+                //print_r($_POST['roles_html']);
                 $name = $_POST['name'];
                 $email = $_POST['email'];
                 $phone = $_POST['phone'];
@@ -46,11 +48,33 @@
                     $errors[] = 'Заполните поля';
                 }
 
+                if (!User::checkName($name)) {
+                    $errors[] = 'Имя не должно быть короче 2-х символов';
+                }
+                
+                if (!User::checkEmail($email)) {
+                    $errors[] = 'Неправильный email';
+                }
+                
+                if (!User::checkPassword($pwd)) {
+                    $errors[] = 'Пароль не должен быть короче 8-ми символов';
+                }
+                
+                if (User::checkEmailExists($email)) {
+                    $errors[] = 'Такой email уже используется';
+                }
+                
+                if (!User::checkPhone($phone)) {
+                    $errors[] = 'Номер телефона должен быть не менее 10 цифр';
+                }
 
                 if ($errors == false) {
                     // Если ошибок нет
-                    // Добавляем новую категорию
-                    User::createUser($name, $sortOrder, $status);
+                    // Добавляем нового пользователя
+                    $roles_html = $_POST['roles_html'];
+
+                    User::register($name, $email, $phone, $pwd);
+                    User::addRoles($email, $roles_html);
 
                     // Перенаправляем пользователя на страницу управлениями категориями
                     header("Location: /admin/user");

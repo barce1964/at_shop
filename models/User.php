@@ -50,6 +50,21 @@
             return $connect->updateRowInTable($sql);
         }
 
+        public static function addRoles($email, $roles_html) {
+            $db = new DB();
+
+            $sql = "SELECT id_user FROM at_adm_users WHERE email_user = '$email'";
+            $id = $db->getList($sql, 5);
+            
+            $sql = '';
+            $sql = $sql . "INSERT INTO at_adm_con_users_roles (id_user, id_role) VALUES";
+            foreach($roles_html as $role) {
+                $sql = $sql . "($id, $role),";
+            }
+            $sql = substr($sql,0,-1);
+            return $db->insertRowToDB($sql);
+        }
+
         /**
          * Проверяем существует ли пользователь с заданными $email и $password
          * @param string $email

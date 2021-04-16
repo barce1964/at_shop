@@ -13,7 +13,7 @@
 
 
 -- Дамп структуры базы данных at_shop
-CREATE DATABASE IF NOT EXISTS `at_shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE IF NOT EXISTS `at_shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `at_shop`;
 
 -- Дамп структуры для таблица at_shop.at_adm_con_users_roles
@@ -24,25 +24,28 @@ CREATE TABLE IF NOT EXISTS `at_adm_con_users_roles` (
   KEY `FK_AT_ADM_C_REFERENCE_AT_ADM_R` (`ID_ROLE`),
   CONSTRAINT `FK_AT_ADM_C_REFERENCE_AT_ADM_R` FOREIGN KEY (`ID_ROLE`) REFERENCES `at_adm_roles` (`ID_ROLE`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_AT_ADM_C_REFERENCE_AT_ADM_U` FOREIGN KEY (`ID_USER`) REFERENCES `at_adm_users` (`ID_USER`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Дамп данных таблицы at_shop.at_adm_con_users_roles: ~6 rows (приблизительно)
+-- Дамп данных таблицы at_shop.at_adm_con_users_roles: ~8 rows (приблизительно)
 /*!40000 ALTER TABLE `at_adm_con_users_roles` DISABLE KEYS */;
 INSERT INTO `at_adm_con_users_roles` (`ID_USER`, `ID_ROLE`) VALUES
 	(1, 1),
 	(2, 2),
 	(3, 2),
 	(1, 2),
-	(4, 2);
+	(4, 2),
+	(5, 1),
+	(7, 1),
+	(7, 2);
 /*!40000 ALTER TABLE `at_adm_con_users_roles` ENABLE KEYS */;
 
 -- Дамп структуры для таблица at_shop.at_adm_roles
 CREATE TABLE IF NOT EXISTS `at_adm_roles` (
   `ID_ROLE` int NOT NULL AUTO_INCREMENT,
-  `NAME_ROLE` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `NAME_ROLE` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID_ROLE`),
   UNIQUE KEY `NAME_ROLE_IDX` (`NAME_ROLE`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Дамп данных таблицы at_shop.at_adm_roles: ~2 rows (приблизительно)
 /*!40000 ALTER TABLE `at_adm_roles` DISABLE KEYS */;
@@ -54,42 +57,44 @@ INSERT INTO `at_adm_roles` (`ID_ROLE`, `NAME_ROLE`) VALUES
 -- Дамп структуры для таблица at_shop.at_adm_users
 CREATE TABLE IF NOT EXISTS `at_adm_users` (
   `ID_USER` int NOT NULL AUTO_INCREMENT,
-  `NAME_USER` varchar(20) COLLATE utf8mb4_bin NOT NULL,
-  `EMAIL_USER` varchar(60) COLLATE utf8mb4_bin NOT NULL,
-  `PHONE_USER` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
-  `PWD_USER` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `USER_CIF` varchar(50) COLLATE utf8mb4_bin NOT NULL,
-  `USER_IV` varchar(100) COLLATE utf8mb4_bin NOT NULL,
-  `USER_KEY` varchar(100) COLLATE utf8mb4_bin NOT NULL,
+  `NAME_USER` varchar(20) NOT NULL,
+  `EMAIL_USER` varchar(60) NOT NULL,
+  `PHONE_USER` varchar(20) DEFAULT NULL,
+  `PWD_USER` varchar(255) NOT NULL,
+  `USER_CIF` varchar(50) NOT NULL,
+  `USER_IV` varchar(100) NOT NULL,
+  `USER_KEY` varchar(100) NOT NULL,
   PRIMARY KEY (`ID_USER`),
   UNIQUE KEY `NAME_USER_IDX` (`NAME_USER`),
   UNIQUE KEY `EMAIL_USER_IDX` (`EMAIL_USER`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Дамп данных таблицы at_shop.at_adm_users: ~5 rows (приблизительно)
+-- Дамп данных таблицы at_shop.at_adm_users: ~6 rows (приблизительно)
 /*!40000 ALTER TABLE `at_adm_users` DISABLE KEYS */;
 INSERT INTO `at_adm_users` (`ID_USER`, `NAME_USER`, `EMAIL_USER`, `PHONE_USER`, `PWD_USER`, `USER_CIF`, `USER_IV`, `USER_KEY`) VALUES
 	(1, 'Alex', 'alexvictar@mail.ru', '+77771210112', 'ciFTNN64/X32phc=', 'aes-256-ofb', '&?1Y%<eJL@myY$|o', '@n=x7Q6@]I4*V]Mg*epLgTd-wA2-jxD7'),
 	(2, 'Marina', 'al@mail.ru', '+77018932678', '5Mwfa/zOiZmX', 'aes-256-ofb', '$bY:vAZWs!$iVX0m', '{HmrIxnXDxPg1aw6VIv;o3|9l{kD9;uV'),
 	(3, 'Vladimir', 'vladimir@mail.ru', '+77475920481', 'xbN9QNuYcggDkHLk', 'aes-256-ofb', '#vr<20vJJR4b0rtP', 'KZi(<{{=1TxBH?FlIGTL3w2OW%83)5t'),
-	(4, 'Ruslan', 'tr@mail.ru', '+77086747992', '6x8sQpDzeQGNUDw=', 'aes-256-ofb', 'qrJpcpyW[xr$oP&U', 'a{RdVvr(AzO!C7D8)*pTlu&cYl38(fU');
+	(4, 'Ruslan', 'tr@mail.ru', '+77086747992', '6x8sQpDzeQGNUDw=', 'aes-256-ofb', 'qrJpcpyW[xr$oP&U', 'a{RdVvr(AzO!C7D8)*pTlu&cYl38(fU'),
+	(5, 'ac', 'al@gmail.ru', '+77058156340', '2RM/sJOBx6OHnb4=', 'aes-256-ofb', '@3BNRvf!58Wv+j(L', 'ZJoxE$_8bjvW))VrcFLAqv4yu%PBUZ'),
+	(7, 'Rusik', 'rus1107@gmail.com', '+77081609657', 'lo/0pHzDhnkOIrI=', 'aes-256-ofb', '*Je|>9r9Ww=fcpER', 'wyLAc:(<LZ2wpkVQ17AF]:B6MK5VyBD:');
 /*!40000 ALTER TABLE `at_adm_users` ENABLE KEYS */;
 
 -- Дамп структуры для таблица at_shop.at_news
 CREATE TABLE IF NOT EXISTS `at_news` (
   `ID_NEWS` int NOT NULL AUTO_INCREMENT,
-  `TITLE` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `TITLE` varchar(50) NOT NULL,
   `DATE` datetime NOT NULL,
-  `SHORT_CONTENT` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `FULL_CONTENT` longtext COLLATE utf8mb4_bin NOT NULL,
-  `AUTHOR_NAME` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `PREVIEW` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `TYPE` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL,
+  `SHORT_CONTENT` varchar(255) NOT NULL,
+  `FULL_CONTENT` longtext NOT NULL,
+  `AUTHOR_NAME` varchar(255) NOT NULL,
+  `PREVIEW` varchar(255) NOT NULL,
+  `TYPE` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ID_NEWS`),
   UNIQUE KEY `TITLE_IDX` (`TITLE`),
   KEY `DATE_IDX` (`DATE`),
   KEY `AUTHOR_NAME_IDX` (`AUTHOR_NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Дамп данных таблицы at_shop.at_news: ~3 rows (приблизительно)
 /*!40000 ALTER TABLE `at_news` DISABLE KEYS */;
@@ -102,13 +107,13 @@ INSERT INTO `at_news` (`ID_NEWS`, `TITLE`, `DATE`, `SHORT_CONTENT`, `FULL_CONTEN
 -- Дамп структуры для таблица at_shop.at_shop_cat
 CREATE TABLE IF NOT EXISTS `at_shop_cat` (
   `ID_CAT` int NOT NULL AUTO_INCREMENT,
-  `NAME_CAT` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `NAME_CAT` varchar(255) NOT NULL,
   `SORT_ORDER` int NOT NULL,
   `STATUS_CAT` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID_CAT`),
   UNIQUE KEY `NAME_CAT_IDX` (`NAME_CAT`),
   KEY `SORT_ORDER_IDX` (`SORT_ORDER`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Дамп данных таблицы at_shop.at_shop_cat: ~6 rows (приблизительно)
 /*!40000 ALTER TABLE `at_shop_cat` DISABLE KEYS */;
@@ -125,19 +130,24 @@ INSERT INTO `at_shop_cat` (`ID_CAT`, `NAME_CAT`, `SORT_ORDER`, `STATUS_CAT`) VAL
 CREATE TABLE IF NOT EXISTS `at_shop_orders` (
   `ID_ORD` int NOT NULL AUTO_INCREMENT,
   `ID_USER` int NOT NULL,
-  `NAME_ORD` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `NAME_ORD` varchar(50) NOT NULL,
   `DATE_ORD` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `TOTAL_ORD` float NOT NULL,
   `ORD_IS_FINISH` int NOT NULL DEFAULT '0',
   `ORD_IS_DETAIL` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID_ORD`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  PRIMARY KEY (`ID_ORD`),
+  UNIQUE KEY `NAME_ORD_IDX` (`NAME_ORD`),
+  KEY `DATE_ORD_IDX` (`DATE_ORD`),
+  KEY `FK_AT_SHOP__REFERENCE_AT_ADM_U` (`ID_USER`),
+  CONSTRAINT `FK_AT_SHOP__REFERENCE_AT_ADM_U` FOREIGN KEY (`ID_USER`) REFERENCES `at_adm_users` (`ID_USER`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Дамп данных таблицы at_shop.at_shop_orders: ~3 rows (приблизительно)
+-- Дамп данных таблицы at_shop.at_shop_orders: ~4 rows (приблизительно)
 /*!40000 ALTER TABLE `at_shop_orders` DISABLE KEYS */;
 INSERT INTO `at_shop_orders` (`ID_ORD`, `ID_USER`, `NAME_ORD`, `DATE_ORD`, `TOTAL_ORD`, `ORD_IS_FINISH`, `ORD_IS_DETAIL`) VALUES
-	(2, 1, '1-ALEX-88KPSQ1M5W', '2021-03-27 15:41:30', 419936, 1, 1),
-	(3, 1, '1-ALEX-MEXRLZ22NR', '2021-03-27 15:43:53', 1640210, 0, 1);
+	(4, 1, '1-ALEX-OKZ5SGZJ3D', '2021-03-26 11:55:31', 294022, 0, 1),
+	(5, 1, '1-ALEX-TBQX9IKFSJ', '2021-03-26 12:13:30', 294022, 0, 1),
+	(6, 1, '1-ALEX-RG8PTJ2NL9', '2021-03-26 12:17:31', 1504690, 0, 1);
 /*!40000 ALTER TABLE `at_shop_orders` ENABLE KEYS */;
 
 -- Дамп структуры для таблица at_shop.at_shop_order_detail
@@ -148,36 +158,36 @@ CREATE TABLE IF NOT EXISTS `at_shop_order_detail` (
   `PROD_SUM` float NOT NULL,
   KEY `FK_AT_SHOP__REFERENCE_AT_SHOP_` (`ID_ORD`),
   CONSTRAINT `FK_AT_SHOP__REFERENCE_AT_SHOP_` FOREIGN KEY (`ID_ORD`) REFERENCES `at_shop_orders` (`ID_ORD`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Дамп данных таблицы at_shop.at_shop_order_detail: ~18 rows (приблизительно)
+-- Дамп данных таблицы at_shop.at_shop_order_detail: ~12 rows (приблизительно)
 /*!40000 ALTER TABLE `at_shop_order_detail` DISABLE KEYS */;
 INSERT INTO `at_shop_order_detail` (`ID_ORD`, `ID_PROD`, `PROD_QUANTITY`, `PROD_SUM`) VALUES
-	(2, 8, 1, 41000),
-	(2, 11, 1, 100200),
-	(2, 13, 1, 15754),
-	(2, 18, 1, 56397),
-	(2, 24, 1, 69160),
-	(2, 43, 1, 137425),
-	(3, 8, 2, 82000),
-	(3, 11, 1, 100200),
-	(3, 13, 1, 15754),
-	(3, 18, 6, 338382),
-	(3, 24, 10, 691600),
-	(3, 43, 3, 412275);
+	(4, 11, 1, 100200),
+	(4, 18, 1, 56397),
+	(4, 43, 1, 137425),
+	(5, 11, 1, 100200),
+	(5, 18, 1, 56397),
+	(5, 43, 1, 137425),
+	(6, 8, 1, 41000),
+	(6, 11, 2, 200400),
+	(6, 13, 1, 15754),
+	(6, 18, 5, 281985),
+	(6, 24, 8, 553280),
+	(6, 43, 3, 412275);
 /*!40000 ALTER TABLE `at_shop_order_detail` ENABLE KEYS */;
 
 -- Дамп структуры для таблица at_shop.at_shop_prod
 CREATE TABLE IF NOT EXISTS `at_shop_prod` (
   `ID_PROD` int NOT NULL AUTO_INCREMENT,
   `ID_CAT` int NOT NULL,
-  `NAME_PROD` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `NAME_PROD` varchar(255) NOT NULL,
   `CODE_PROD` int NOT NULL,
   `PRICE_PROD` float NOT NULL,
   `AVAILABILITY` int NOT NULL DEFAULT '1',
-  `BRAND_PROD` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `IMAGE_PROD` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
-  `DESCR_PROD` text COLLATE utf8mb4_bin NOT NULL,
+  `BRAND_PROD` varchar(255) NOT NULL,
+  `IMAGE_PROD` varchar(255) DEFAULT NULL,
+  `DESCR_PROD` text NOT NULL,
   `IS_NEW` int NOT NULL DEFAULT '0',
   `IS_REC` int NOT NULL DEFAULT '0',
   `STATUS_PROD` int NOT NULL DEFAULT '1',
@@ -185,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `at_shop_prod` (
   KEY `NAME_PROD_IDX` (`NAME_PROD`),
   KEY `CODE_PROD_IDX` (`CODE_PROD`),
   KEY `BRAND_PROD_IDX` (`BRAND_PROD`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Дамп данных таблицы at_shop.at_shop_prod: ~43 rows (приблизительно)
 /*!40000 ALTER TABLE `at_shop_prod` DISABLE KEYS */;

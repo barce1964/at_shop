@@ -41,14 +41,17 @@
                         <input type="text" name="phone" placeholder="" value="">
 
                         <p>Пароль</p>
-                        <input type="text" name="pwd" placeholder="" value="">
+                        <input type="password" name="pwd" placeholder="" value="">
 
                         <p>Роли</p>
                         <hr>
                         <table class="table-striped table">
+                            <?php $i = 0; ?>
                             <?php foreach ($roles as $role): ?>
+                                <?php $i++; ?>
                                 <tr>
-                                    <td><?php echo $role['name_role']; ?></td><td align="right"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                    <td><?php echo $role['name_role']; ?></td>
+                                    <td align="right"><input type="checkbox" name="roles_html[<?php echo $i; ?>]" value="<?php echo $role['id_role']; ?>"></td>
                                 </tr>
                             <?php endforeach; ?>
                         </table>
