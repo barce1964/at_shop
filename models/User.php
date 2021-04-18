@@ -23,7 +23,6 @@
             $iv = User::genStr(16);//openssl_random_pseudo_bytes($ivlen);
             $key = User::genStr(32);
             $pwd = openssl_encrypt($password, $cipher, $key, $options=0, $iv);
-            //$pwd = crypt($password, '$6$rounds=5000$usesomesillystringforsalt$');
             
             $query = 'INSERT INTO at_adm_users (name_user, email_user, phone_user, pwd_user, user_cif, user_iv, user_key) '
                 . "VALUES ('$name', '$email', '$phone', '$pwd', '$cipher', '$iv', '$key')";
@@ -40,7 +39,7 @@
             //$db = Db::getConnection();
             $connect = new DB();
             $cipher = "aes-256-ofb";
-            $iv = User::genStr(16);//openssl_random_pseudo_bytes($ivlen);
+            $iv = User::genStr(16);
             $key = User::genStr(32);
             $pwd = openssl_encrypt($password, $cipher, $key, $options=0, $iv);
             $sql = "UPDATE at_adm_users SET name_user = '$name', email_user = '$email', phone_user = '$phone',
@@ -199,6 +198,14 @@
                 
                 return $connect->getList($sql, 12);
             }
+        }
+
+        public static function deleteRoles($id) {
+            include_once ROOT . '/db/connect.php';
+            $db = new DB();
+
+            $sql = "DELETE FROM at_adm_con_users_roles WHERE id_user = $id";
+            return $db->deleteRowFromTable($sql);
         }
 
         public static function getUsersList() {
