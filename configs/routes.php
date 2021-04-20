@@ -18,6 +18,8 @@
         'user/login' => 'user/login',
         'user/logout' => 'user/logout',
         'cabinet/edit' => 'cabinet/edit',
+        'cabinet/view/([0-9]+)' => 'cabinet/view/$1',
+        'cabinet/history' => 'cabinet/history',
         'cabinet' => 'cabinet/index',
         // Управление товарами:    
         'admin/product/create' => 'adminProduct/create',

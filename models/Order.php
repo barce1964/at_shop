@@ -126,7 +126,7 @@
 
             // Текст запроса к БД
             $sql = "SELECT a.name_ord, a.date_ord, a.total_ord, a.ord_is_finish, b.name_user, b.phone_user
-                FROM at_shop_orders a, at_adm_users b WHERE id_ord = $id AND a.id_user = b.id_user";
+                FROM at_shop_orders a, at_adm_users b WHERE a.id_ord = $id AND a.id_user = b.id_user";
 
             // Возвращаем данные
             return $db->getList($sql, 15);
@@ -178,5 +178,13 @@
             return $db->updateRowInTable($sql);
         }
 
+        public static function getOrdsByIdUser($id) {
+            include_once ROOT . '/db/connect.php';
+            $db = new Db();
+
+            $sql = "SELECT * FROM at_shop_orders WHERE id_user = $id";
+
+            return $db->getList($sql, 19);
+        }
     }
 ?>

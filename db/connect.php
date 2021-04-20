@@ -23,7 +23,6 @@
 
             $result = mysqli_query($con, $qry)
                 or die("Ошибка " . mysqli_error($con));
-            
             $i = 0;
             switch ($idx) {
                 case 1:
@@ -220,9 +219,21 @@
                         }
                         break;
 
-                        default:
-                    # code...
-                    break;
+                    case 19:
+                        $returnList = array();
+                        while ($row = mysqli_fetch_row($result)) {
+                            $returnList[$i]['id_ord'] = $row[0];
+                            $returnList[$i]['name_ord'] = $row[2];
+                            $returnList[$i]['date_ord'] = $row[3];
+                            $returnList[$i]['total_ord'] = $row[4];
+                            $returnList[$i]['ord_is_finish'] = $row[5];
+                            $i++;
+                        }
+                        break;    
+    
+                    default:
+                        # code...
+                        break;
             }
             mysqli_close($con);
             return $returnList;

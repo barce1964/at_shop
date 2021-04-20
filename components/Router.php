@@ -19,7 +19,6 @@
             // Получить строку запроса
 
             $uri = $this->getURI();
-
             // Проверить наличие такого запроса в routes.php
 
             $i = 0;
@@ -37,7 +36,7 @@
                     $controllerName = ucfirst($controllerName);
                     $actionName = 'action' . ucfirst(array_shift($segments));
                     $parameters = $segments;
-
+                    
                     // Подключить файл класса контроллера
 
                     $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
